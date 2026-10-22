@@ -1,0 +1,19 @@
+@model Reserva
+
+@{
+    ViewData["Title"] = "Detalles de reservación";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card ht-card shadow-sm">
+            <div class="card-header">Detalles de la reservación</div>
+            <div class="card-body p-4">
+                <partial name="_DetallesParcial" model="Model" />
+            </div>
+            <div class="card-footer bg-white">
+                <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>

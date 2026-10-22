@@ -1,0 +1,92 @@
+@model Reserva
+
+@{
+    ViewData["Title"] = "Nueva reserva";
+    var habitacion = ViewBag.Habitacion as Habitacion;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card ht-card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-1">Nueva reserva</h3>
+                @if (habitacion != null)
+                {
+                    <p class="text-muted">
+                        Habitación: <strong>@habitacion.NombreDeHabitacion</strong> (@habitacion.TipoTexto) ·
+                        Costo por noche: @habitacion.CostoDeReserva.ToString("N2") ·
+                        Limpieza: @habitacion.CostoDeLimpieza.ToString("N2")
+                    </p>
+                }
+
+                <partial name="_Mensajes" />
+
+                <form asp-action="AgregarReserva" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IdHabitacion" />
+
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label asp-for="NombrePersona" class="form-label"></label>
+                            <input asp-for="NombrePersona" class="form-control" />
+                            <span asp-validation-for="NombrePersona" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Identificacion" class="form-label"></label>
+                            <input asp-for="Identificacion" class="form-control" />
+                            <span asp-validation-for="Identificacion" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Telefono" class="form-label"></label>
+                            <input asp-for="Telefono" class="form-control" />
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label asp-for="Correo" class="form-label"></label>
+                            <input asp-for="Correo" class="form-control" />
+                            <span asp-validation-for="Correo" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FechaNacimiento" class="form-label"></label>
+                            <input asp-for="FechaNacimiento" class="form-control" />
+                            <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label asp-for="Direccion" class="form-label"></label>
+                            <input asp-for="Direccion" class="form-control" />
+                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FechaInicioReserva" class="form-label"></label>
+                            <input asp-for="FechaInicioReserva" class="form-control" />
+                            <span asp-validation-for="FechaInicioReserva" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FechaFinReserva" class="form-label"></label>
+                            <input asp-for="FechaFinReserva" class="form-control" />
+                            <span asp-validation-for="FechaFinReserva" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <p class="text-muted small">El monto total se calcula automáticamente: noches × costo por noche + costo de limpieza.</p>
+
+                    <button type="submit" class="btn btn-success">Reservar</button>
+                    <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

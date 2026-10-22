@@ -1,0 +1,76 @@
+@model List<Habitacion>
+
+@{
+    ViewData["Title"] = "Habitaciones";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Habitaciones</h3>
+    <a asp-action="AgregarHabitacion" class="btn btn-success">+ Agregar habitación</a>
+</div>
+
+<partial name="_Mensajes" />
+
+<div class="card ht-card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Huéspedes</th>
+                        <th>Camas</th>
+                        <th>Baños</th>
+                        <th>Ubicación</th>
+                        <th>Encargado</th>
+                        <th>Tipo</th>
+                        <th>Limpieza</th>
+                        <th>Por noche</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="12" class="text-center text-muted py-4">No hay habitaciones registradas.</td>
+                        </tr>
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CodigoDeHabitacion</td>
+                            <td>@item.NombreDeHabitacion</td>
+                            <td>@item.CantidadDeHuespedesPermitidos</td>
+                            <td>@item.CantidadDeCamas</td>
+                            <td>@item.CantidadDeBanos</td>
+                            <td>@item.Ubicacion</td>
+                            <td>@item.EncargadoDeLimpieza</td>
+                            <td>@item.TipoTexto</td>
+                            <td>@item.CostoDeLimpieza.ToString("N2")</td>
+                            <td>@item.CostoDeReserva.ToString("N2")</td>
+                            <td>
+                                @if (item.Estado)
+                                {
+                                    <span class="badge bg-success">Activa</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Inactiva</span>
+                                }
+                            </td>
+                            <td class="text-nowrap">
+                                <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a>
+                                <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalles</a>
+                                <a asp-controller="Reserva" asp-action="ObtenerReservas" asp-route-idHabitacion="@item.Id" class="btn btn-success btn-sm">Ver reservas</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

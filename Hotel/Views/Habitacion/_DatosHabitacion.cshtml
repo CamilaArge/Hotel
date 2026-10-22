@@ -1,0 +1,43 @@
+@model Habitacion
+
+@* Lista de datos de la habitación, se reutiliza en Detalles y Eliminar *@
+<dl class="row mb-0">
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CodigoDeHabitacion)</dt>
+    <dd class="col-sm-8">@Model.CodigoDeHabitacion</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.NombreDeHabitacion)</dt>
+    <dd class="col-sm-8">@Model.NombreDeHabitacion</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CantidadDeHuespedesPermitidos)</dt>
+    <dd class="col-sm-8">@Model.CantidadDeHuespedesPermitidos</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CantidadDeCamas)</dt>
+    <dd class="col-sm-8">@Model.CantidadDeCamas</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CantidadDeBanos)</dt>
+    <dd class="col-sm-8">@Model.CantidadDeBanos</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Ubicacion)</dt>
+    <dd class="col-sm-8">@Model.Ubicacion</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.EncargadoDeLimpieza)</dt>
+    <dd class="col-sm-8">@Model.EncargadoDeLimpieza</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.TipoDeHabitacion)</dt>
+    <dd class="col-sm-8">@Model.TipoTexto</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CostoDeLimpieza)</dt>
+    <dd class="col-sm-8">@Model.CostoDeLimpieza.ToString("N2")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CostoDeReserva)</dt>
+    <dd class="col-sm-8">@Model.CostoDeReserva.ToString("N2")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaDeRegistro)</dt>
+    <dd class="col-sm-8">@Model.FechaDeRegistro.ToString("dd/MM/yyyy HH:mm")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaDeModificacion)</dt>
+    <dd class="col-sm-8">@(Model.FechaDeModificacion?.ToString("dd/MM/yyyy HH:mm") ?? "-")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Estado)</dt>
+    <dd class="col-sm-8">@(Model.Estado ? "Sí" : "No")</dd>
+</dl>

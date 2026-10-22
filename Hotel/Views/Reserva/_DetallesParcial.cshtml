@@ -1,0 +1,37 @@
+@model Reserva
+
+@* Datos de la reserva, se usa en Detalles, Eliminar y en el modal del buscador *@
+<dl class="row mb-0">
+    <dt class="col-sm-4">Número de reservación</dt>
+    <dd class="col-sm-8">@Model.Id</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.NombrePersona)</dt>
+    <dd class="col-sm-8">@Model.NombrePersona</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Identificacion)</dt>
+    <dd class="col-sm-8">@Model.Identificacion</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Telefono)</dt>
+    <dd class="col-sm-8">@Model.Telefono</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Correo)</dt>
+    <dd class="col-sm-8">@Model.Correo</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaNacimiento)</dt>
+    <dd class="col-sm-8">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Direccion)</dt>
+    <dd class="col-sm-8">@Model.Direccion</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaInicioReserva)</dt>
+    <dd class="col-sm-8">@Model.FechaInicioReserva.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaFinReserva)</dt>
+    <dd class="col-sm-8">@Model.FechaFinReserva.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.MontoTotal)</dt>
+    <dd class="col-sm-8 fw-bold">@Model.MontoTotal.ToString("N2")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaDeRegistro)</dt>
+    <dd class="col-sm-8">@Model.FechaDeRegistro.ToString("dd/MM/yyyy HH:mm")</dd>
+</dl>

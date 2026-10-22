@@ -1,0 +1,23 @@
+@model Habitacion
+
+@{
+    ViewData["Title"] = "Eliminar habitación";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card ht-card shadow-sm">
+            <div class="card-header">¿Seguro que desea eliminar esta habitación?</div>
+            <div class="card-body p-4">
+                <partial name="_Mensajes" />
+                <partial name="_DatosHabitacion" model="Model" />
+            </div>
+            <div class="card-footer bg-white">
+                <form asp-action="Eliminar" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+                <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>

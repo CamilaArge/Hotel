@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-6">Bienvenido a Hotel los Patitos</h1>
+
+    @if (User.Identity?.IsAuthenticated != true)
+    {
+        <p class="text-muted">Inicie sesión o regístrese para continuar.</p>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Iniciar sesión</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-primary">Registrarse</a>
+    }
+</div>
+
+<div class="row justify-content-center g-4">
+    @if (User.IsInRole(Roles.Administrador))
+    {
+        <div class="col-md-5">
+            <div class="card ht-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h4>Habitaciones</h4>
+                    <p class="text-muted">Agregar, editar y consultar las habitaciones del hotel y sus reservas.</p>
+                    <a asp-controller="Habitacion" asp-action="ObtenerHabitaciones" class="btn btn-primary">Administrar habitaciones</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (User.IsInRole(Roles.Cliente))
+    {
+        <div class="col-md-5">
+            <div class="card ht-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h4>Reservas</h4>
+                    <p class="text-muted">Ver las habitaciones disponibles, reservar o buscar una reservación.</p>
+                    <a asp-controller="Reserva" asp-action="ObtenerHabitaciones" class="btn btn-success">Hacer una reserva</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
