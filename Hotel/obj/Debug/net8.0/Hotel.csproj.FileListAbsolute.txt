@@ -168,3 +168,4 @@ C:\Users\Camila\Source\Repos\Hotel\Hotel\obj\Debug\net8.0\refint\Hotel.dll
 C:\Users\Camila\Source\Repos\Hotel\Hotel\obj\Debug\net8.0\Hotel.pdb
 C:\Users\Camila\Source\Repos\Hotel\Hotel\obj\Debug\net8.0\Hotel.genruntimeconfig.cache
 C:\Users\Camila\Source\Repos\Hotel\Hotel\obj\Debug\net8.0\ref\Hotel.dll
+C:\Users\Camila\Source\Repos\Hotel\Hotel\obj\Debug\net8.0\Hotel.sourcelink.json

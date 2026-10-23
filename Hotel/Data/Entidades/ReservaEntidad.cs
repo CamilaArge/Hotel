@@ -3,25 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelLosPatitos.Data.Entidades
 {
-    // Modelo de la base de datos: representa la tabla RESERVACIONES tal como está
+ 
     [Table("RESERVACIONES")]
     public class ReservaEntidad
     {
         [Key]
         public int Id { get; set; }
 
-        [Column("NombreDeLaPersona")]
-        public string NombrePersona { get; set; } = string.Empty;
-
-        public string Identificacion { get; set; } = string.Empty;
-
-        public string Telefono { get; set; } = string.Empty;
-
-        public string Correo { get; set; } = string.Empty;
-
-        public DateTime FechaNacimiento { get; set; }
-
-        public string Direccion { get; set; } = string.Empty;
+        public int IdUsuario { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal MontoTotal { get; set; }

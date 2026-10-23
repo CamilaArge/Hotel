@@ -60,12 +60,6 @@ namespace HotelLosPatitos.Services
                 return false;
             }
 
-            entidad.NombrePersona = reserva.NombrePersona;
-            entidad.Identificacion = reserva.Identificacion;
-            entidad.Telefono = reserva.Telefono;
-            entidad.Correo = reserva.Correo;
-            entidad.FechaNacimiento = reserva.FechaNacimiento;
-            entidad.Direccion = reserva.Direccion;
             entidad.FechaInicioReserva = reserva.FechaInicioReserva;
             entidad.FechaFinReserva = reserva.FechaFinReserva;
             entidad.IdHabitacion = reserva.IdHabitacion;
@@ -91,7 +85,7 @@ namespace HotelLosPatitos.Services
         private static decimal CalcularMonto(Reserva reserva, HabitacionEntidad habitacion)
         {
             int noches = (reserva.FechaFinReserva.Date - reserva.FechaInicioReserva.Date).Days;
-            return (noches * habitacion.CostoDeReserva) + habitacion.CostoDeLimpieza;
+            return (noches * habitacion.CostoDeReserva);
         }
 
         // ----- Conversiones entre el modelo de la base de datos y el modelo del sistema -----
@@ -101,12 +95,6 @@ namespace HotelLosPatitos.Services
             return new Reserva
             {
                 Id = entidad.Id,
-                NombrePersona = entidad.NombrePersona,
-                Identificacion = entidad.Identificacion,
-                Telefono = entidad.Telefono,
-                Correo = entidad.Correo,
-                FechaNacimiento = entidad.FechaNacimiento,
-                Direccion = entidad.Direccion,
                 MontoTotal = entidad.MontoTotal,
                 FechaInicioReserva = entidad.FechaInicioReserva,
                 FechaFinReserva = entidad.FechaFinReserva,
@@ -120,12 +108,6 @@ namespace HotelLosPatitos.Services
             return new ReservaEntidad
             {
                 Id = reserva.Id,
-                NombrePersona = reserva.NombrePersona,
-                Identificacion = reserva.Identificacion,
-                Telefono = reserva.Telefono,
-                Correo = reserva.Correo,
-                FechaNacimiento = reserva.FechaNacimiento,
-                Direccion = reserva.Direccion,
                 MontoTotal = reserva.MontoTotal,
                 FechaInicioReserva = reserva.FechaInicioReserva,
                 FechaFinReserva = reserva.FechaFinReserva,

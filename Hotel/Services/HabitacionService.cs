@@ -58,11 +58,9 @@ namespace HotelLosPatitos.Services
             }
 
             // Solo se actualizan los campos editables (código, nombre, baños y ubicación no cambian)
-            entidad.CantidadDeHuespedesPermitidos = habitacion.CantidadDeHuespedesPermitidos;
-            entidad.CantidadDeCamas = habitacion.CantidadDeCamas;
-            entidad.EncargadoDeLimpieza = habitacion.EncargadoDeLimpieza;
+            entidad.CantidadHuespedesPermitidos = habitacion.CantidadHuespedesPermitidos;
+            entidad.CantidadCamas = habitacion.CantidadCamas;
             entidad.TipoDeHabitacion = habitacion.TipoDeHabitacion;
-            entidad.CostoDeLimpieza = habitacion.CostoDeLimpieza;
             entidad.CostoDeReserva = habitacion.CostoDeReserva;
             entidad.Estado = habitacion.Estado;
             entidad.FechaDeModificacion = _fechaService.ObtenerFechaActual();
@@ -83,22 +81,19 @@ namespace HotelLosPatitos.Services
             return _contexto.SaveChanges() > 0;
         }
 
-        // ----- Conversiones entre el modelo de la base de datos y el modelo del sistema -----
-
+ 
         private static Habitacion ConvertirAModelo(HabitacionEntidad entidad)
         {
             return new Habitacion
             {
                 Id = entidad.Id,
                 CodigoDeHabitacion = entidad.CodigoDeHabitacion,
-                NombreDeHabitacion = entidad.NombreDeHabitacion,
-                CantidadDeHuespedesPermitidos = entidad.CantidadDeHuespedesPermitidos,
-                CantidadDeCamas = entidad.CantidadDeCamas,
-                CantidadDeBanos = entidad.CantidadDeBanos,
+                NombreDeHabitacion = entidad.NombreHabitacion,
+                CantidadHuespedesPermitidos = entidad.CantidadHuespedesPermitidos,
+                CantidadCamas = entidad.CantidadCamas,
+                CantidadDeBanos = entidad.CantidadBanos,
                 Ubicacion = entidad.Ubicacion,
-                EncargadoDeLimpieza = entidad.EncargadoDeLimpieza,
                 TipoDeHabitacion = entidad.TipoDeHabitacion,
-                CostoDeLimpieza = entidad.CostoDeLimpieza,
                 CostoDeReserva = entidad.CostoDeReserva,
                 FechaDeRegistro = entidad.FechaDeRegistro,
                 FechaDeModificacion = entidad.FechaDeModificacion,
@@ -112,14 +107,12 @@ namespace HotelLosPatitos.Services
             {
                 Id = habitacion.Id,
                 CodigoDeHabitacion = habitacion.CodigoDeHabitacion,
-                NombreDeHabitacion = habitacion.NombreDeHabitacion,
-                CantidadDeHuespedesPermitidos = habitacion.CantidadDeHuespedesPermitidos,
-                CantidadDeCamas = habitacion.CantidadDeCamas,
-                CantidadDeBanos = habitacion.CantidadDeBanos,
+                NombreHabitacion = habitacion.NombreDeHabitacion,
+                CantidadHuespedesPermitidos = habitacion.CantidadHuespedesPermitidos,
+                CantidadCamas = habitacion.CantidadCamas,
+                CantidadBanos = habitacion.CantidadDeBanos,
                 Ubicacion = habitacion.Ubicacion,
-                EncargadoDeLimpieza = habitacion.EncargadoDeLimpieza,
                 TipoDeHabitacion = habitacion.TipoDeHabitacion,
-                CostoDeLimpieza = habitacion.CostoDeLimpieza,
                 CostoDeReserva = habitacion.CostoDeReserva,
                 FechaDeRegistro = habitacion.FechaDeRegistro,
                 FechaDeModificacion = habitacion.FechaDeModificacion,

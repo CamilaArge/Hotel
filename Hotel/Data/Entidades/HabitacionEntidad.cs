@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelLosPatitos.Data.Entidades
 {
-    // Modelo de la base de datos: representa la tabla HABITACIONES tal como está
+   
     [Table("HABITACIONES")]
     public class HabitacionEntidad
     {
@@ -13,22 +13,17 @@ namespace HotelLosPatitos.Data.Entidades
 
         public string CodigoDeHabitacion { get; set; } = string.Empty;
 
-        public string NombreDeHabitacion { get; set; } = string.Empty;
+        public string NombreHabitacion { get; set; } = string.Empty;
 
-        public int CantidadDeHuespedesPermitidos { get; set; }
+        public int CantidadHuespedesPermitidos { get; set; }
 
-        public int CantidadDeCamas { get; set; }
+        public int CantidadCamas { get; set; }
 
-        public int CantidadDeBanos { get; set; }
+        public int CantidadBanos { get; set; }
 
         public string Ubicacion { get; set; } = string.Empty;
 
-        public string EncargadoDeLimpieza { get; set; } = string.Empty;
-
         public int TipoDeHabitacion { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal CostoDeLimpieza { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal CostoDeReserva { get; set; }

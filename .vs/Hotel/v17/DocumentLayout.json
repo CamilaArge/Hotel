@@ -1,7 +1,136 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Camila\\source\\repos\\Hotel\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\services\\habitacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\habitacionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\obtenerhabitaciones.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\obtenerhabitaciones.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\obtenerreservas.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\obtenerreservas.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\eliminar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\eliminar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\detalles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\detalles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\agregarreserva.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\agregarreserva.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\reserva\\_detallesparcial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\reserva\\_detallesparcial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\habitacion\\obtenerhabitaciones.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\habitacion\\obtenerhabitaciones.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\habitacion\\eliminar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\habitacion\\eliminar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\habitacion\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\habitacion\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\models\\habitacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\habitacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\habitacion\\detalles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\habitacion\\detalles.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\habitacion\\agregarhabitacion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\habitacion\\agregarhabitacion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\views\\habitacion\\_datoshabitacion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\habitacion\\_datoshabitacion.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\data\\entidades\\habitacionentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\entidades\\habitacionentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\data\\entidades\\reservaentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\entidades\\reservaentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\services\\fechaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\fechaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\services\\erroresidentityenespanol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\erroresidentityenespanol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\pages\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\pages\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\models\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|c:\\users\\camila\\source\\repos\\hotel\\hotel\\data\\hotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\hotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +138,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 61,
           "Children": [
             {
               "$type": "Bookmark",
@@ -238,6 +367,410 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ObtenerReservas.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\ObtenerReservas.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\ObtenerReservas.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\ObtenerReservas.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\ObtenerReservas.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:59:35.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ObtenerHabitaciones.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\ObtenerHabitaciones.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\ObtenerHabitaciones.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\ObtenerHabitaciones.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\ObtenerHabitaciones.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:59:30.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Eliminar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\Eliminar.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\Eliminar.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\Eliminar.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\Eliminar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:59:28.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HabitacionService.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\HabitacionService.cs",
+              "RelativeDocumentMoniker": "Hotel\\Services\\HabitacionService.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\HabitacionService.cs",
+              "RelativeToolTip": "Hotel\\Services\\HabitacionService.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAADwv3sAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:23:48.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReservaService.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\ReservaService.cs",
+              "RelativeDocumentMoniker": "Hotel\\Services\\ReservaService.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\ReservaService.cs",
+              "RelativeToolTip": "Hotel\\Services\\ReservaService.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAAEMAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:23:58.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\Editar.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\Editar.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\Editar.cshtml",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAABQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:59:19.271Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Detalles.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\Detalles.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\Detalles.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\Detalles.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\Detalles.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:58:52.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AgregarReserva.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\AgregarReserva.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\AgregarReserva.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\AgregarReserva.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\AgregarReserva.cshtml",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAAB8AAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:58:16.142Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "_DetallesParcial.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\_DetallesParcial.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Reserva\\_DetallesParcial.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Reserva\\_DetallesParcial.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Reserva\\_DetallesParcial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:57:51.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:57:48.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Reserva.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\Reserva.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\Reserva.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\Reserva.cs",
+              "RelativeToolTip": "Hotel\\Models\\Reserva.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:45.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ObtenerHabitaciones.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\ObtenerHabitaciones.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Habitacion\\ObtenerHabitaciones.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\ObtenerHabitaciones.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Habitacion\\ObtenerHabitaciones.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAABgAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:57:13.641Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Eliminar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\Eliminar.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Habitacion\\Eliminar.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\Eliminar.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Habitacion\\Eliminar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:57:11.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\Editar.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Habitacion\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\Editar.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Habitacion\\Editar.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowDUAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:56:30.242Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Detalles.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\Detalles.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Habitacion\\Detalles.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\Detalles.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Habitacion\\Detalles.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:56:27.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AgregarHabitacion.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\AgregarHabitacion.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Habitacion\\AgregarHabitacion.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\AgregarHabitacion.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Habitacion\\AgregarHabitacion.cshtml",
+              "ViewState": "AgIAACwAAAAAAAAAAAAAADoAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:55:34.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "_DatosHabitacion.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\_DatosHabitacion.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Habitacion\\_DatosHabitacion.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Views\\Habitacion\\_DatosHabitacion.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Habitacion\\_DatosHabitacion.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAkwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-23T00:54:15.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Habitacion.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\Habitacion.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\Habitacion.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\Habitacion.cs",
+              "RelativeToolTip": "Hotel\\Models\\Habitacion.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAmwBsAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:29.866Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Pages\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\Privacy.cshtml",
+              "RelativeToolTip": "Hotel\\Pages\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-22T02:23:34.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "HabitacionEntidad.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Data\\Entidades\\HabitacionEntidad.cs",
+              "RelativeDocumentMoniker": "Hotel\\Data\\Entidades\\HabitacionEntidad.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Data\\Entidades\\HabitacionEntidad.cs",
+              "RelativeToolTip": "Hotel\\Data\\Entidades\\HabitacionEntidad.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAAA8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:21:52.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ReservaEntidad.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Data\\Entidades\\ReservaEntidad.cs",
+              "RelativeDocumentMoniker": "Hotel\\Data\\Entidades\\ReservaEntidad.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Data\\Entidades\\ReservaEntidad.cs",
+              "RelativeToolTip": "Hotel\\Data\\Entidades\\ReservaEntidad.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:12.541Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ErroresIdentityEnEspanol.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\ErroresIdentityEnEspanol.cs",
+              "RelativeDocumentMoniker": "Hotel\\Services\\ErroresIdentityEnEspanol.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\ErroresIdentityEnEspanol.cs",
+              "RelativeToolTip": "Hotel\\Services\\ErroresIdentityEnEspanol.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAAAQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:23:36.806Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "FechaService.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\FechaService.cs",
+              "RelativeDocumentMoniker": "Hotel\\Services\\FechaService.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Services\\FechaService.cs",
+              "RelativeToolTip": "Hotel\\Services\\FechaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:23:45.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\Index.cshtml",
+              "RelativeToolTip": "Hotel\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-22T02:23:31.416Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "Hotel\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-22T02:23:29.604Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Pages\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\_ViewStart.cshtml",
+              "RelativeToolTip": "Hotel\\Pages\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-22T02:23:27.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Pages\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "Hotel\\Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-22T02:23:25.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\Roles.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\Roles.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\Roles.cs",
+              "RelativeToolTip": "Hotel\\Models\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:50.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "RegisterViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\RegisterViewModel.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\RegisterViewModel.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\RegisterViewModel.cs",
+              "RelativeToolTip": "Hotel\\Models\\RegisterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:43.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\LoginViewModel.cs",
+              "RelativeToolTip": "Hotel\\Models\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:40.631Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "Hotel\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:28.715Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "HotelContext.cs",
+              "DocumentMoniker": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Data\\HotelContext.cs",
+              "RelativeDocumentMoniker": "Hotel\\Data\\HotelContext.cs",
+              "ToolTip": "C:\\Users\\Camila\\source\\repos\\Hotel\\Hotel\\Data\\HotelContext.cs",
+              "RelativeToolTip": "Hotel\\Data\\HotelContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T02:22:18.497Z"
             }
           ]
         },

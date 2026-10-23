@@ -30,14 +30,14 @@
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label asp-for="CantidadDeHuespedesPermitidos" class="form-label"></label>
-                            <input asp-for="CantidadDeHuespedesPermitidos" class="form-control" />
-                            <span asp-validation-for="CantidadDeHuespedesPermitidos" class="text-danger"></span>
+                            <label asp-for="CantidadHuespedesPermitidos" class="form-label"></label>
+                            <input asp-for="CantidadHuespedesPermitidos" class="form-control" />
+                            <span asp-validation-for="CantidadHuespedesPermitidos" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label asp-for="CantidadDeCamas" class="form-label"></label>
-                            <input asp-for="CantidadDeCamas" class="form-control" />
-                            <span asp-validation-for="CantidadDeCamas" class="text-danger"></span>
+                            <label asp-for="CantidadCamas" class="form-label"></label>
+                            <input asp-for="CantidadCamas" class="form-control" />
+                            <span asp-validation-for="CantidadCamas" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label asp-for="CantidadDeBanos" class="form-label"></label>
@@ -52,10 +52,10 @@
                             <input asp-for="Ubicacion" class="form-control" />
                             <span asp-validation-for="Ubicacion" class="text-danger"></span>
                         </div>
-                        <div class="col-md-8 mb-3">
-                            <label asp-for="EncargadoDeLimpieza" class="form-label"></label>
-                            <input asp-for="EncargadoDeLimpieza" class="form-control" />
-                            <span asp-validation-for="EncargadoDeLimpieza" class="text-danger"></span>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="CostoDeReserva" class="form-label"></label>
+                            <input asp-for="CostoDeReserva" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="CostoDeReserva" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -70,16 +70,8 @@
                             </select>
                             <span asp-validation-for="TipoDeHabitacion" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="CostoDeLimpieza" class="form-label"></label>
-                            <input asp-for="CostoDeLimpieza" type="number" step="0.01" class="form-control" />
-                            <span asp-validation-for="CostoDeLimpieza" class="text-danger"></span>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="CostoDeReserva" class="form-label"></label>
-                            <input asp-for="CostoDeReserva" type="number" step="0.01" class="form-control" />
-                            <span asp-validation-for="CostoDeReserva" class="text-danger"></span>
-                        </div>
+
+                      
                     </div>
 
                     <button type="submit" class="btn btn-success">Guardar</button>

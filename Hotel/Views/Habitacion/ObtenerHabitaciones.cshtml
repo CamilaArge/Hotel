@@ -23,9 +23,7 @@
                         <th>Camas</th>
                         <th>Baños</th>
                         <th>Ubicación</th>
-                        <th>Encargado</th>
                         <th>Tipo</th>
-                        <th>Limpieza</th>
                         <th>Por noche</th>
                         <th>Estado</th>
                         <th></th>
@@ -44,13 +42,11 @@
                         <tr>
                             <td>@item.CodigoDeHabitacion</td>
                             <td>@item.NombreDeHabitacion</td>
-                            <td>@item.CantidadDeHuespedesPermitidos</td>
-                            <td>@item.CantidadDeCamas</td>
+                            <td>@item.CantidadHuespedesPermitidos</td>
+                            <td>@item.CantidadCamas</td>
                             <td>@item.CantidadDeBanos</td>
                             <td>@item.Ubicacion</td>
-                            <td>@item.EncargadoDeLimpieza</td>
                             <td>@item.TipoTexto</td>
-                            <td>@item.CostoDeLimpieza.ToString("N2")</td>
                             <td>@item.CostoDeReserva.ToString("N2")</td>
                             <td>
                                 @if (item.Estado)

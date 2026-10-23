@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HotelLosPatitos.Services
 {
-    // Traduce al español los mensajes de error más comunes del registro de usuarios
+   
     public class ErroresIdentityEnEspanol : IdentityErrorDescriber
     {
         public override IdentityError DuplicateUserName(string userName) =>
