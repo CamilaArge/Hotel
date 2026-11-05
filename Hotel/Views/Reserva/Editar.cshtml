@@ -2,35 +2,53 @@
 
 @{
     ViewData["Title"] = "Editar reserva";
+    var habitacion = ViewBag.Habitacion as Habitacion;
 }
 
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="card ht-card shadow-sm">
             <div class="card-body p-4">
-                <h3 class="mb-1">Editar reserva #@Model.Id</h3>
-                <p class="text-muted">Monto actual: @Model.MontoTotal.ToString("N2") (se recalcula al guardar)</p>
+                <h3 class="mb-1">Editar reserva #@Model.IdReserva</h3>
+                <p class="text-muted">
+                    @if (habitacion != null)
+                    {
+                        <text>Habitación: <strong>@habitacion.Nombre</strong> (máximo @habitacion.CantidadHuespedes huéspedes) · </text>
+                    }
+                    Monto actual: @Model.MontoTotal.ToString("N2") (se recalcula al guardar)
+                </p>
 
                 <partial name="_Mensajes" />
 
                 <form asp-action="Editar" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="IdReserva" />
                     <input type="hidden" asp-for="IdHabitacion" />
-
-             
+                    <input type="hidden" asp-for="IdUsuario" />
+                    <input type="hidden" asp-for="IdPaquete" />
+                    <input type="hidden" asp-for="FechaRegistro" />
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="FechaInicioReserva" class="form-label"></label>
-                            <input asp-for="FechaInicioReserva" class="form-control" />
-                            <span asp-validation-for="FechaInicioReserva" class="text-danger"></span>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FechaEntrada" class="form-label"></label>
+                            <input asp-for="FechaEntrada" class="form-control" />
+                            <span asp-validation-for="FechaEntrada" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="FechaFinReserva" class="form-label"></label>
-                            <input asp-for="FechaFinReserva" class="form-control" />
-                            <span asp-validation-for="FechaFinReserva" class="text-danger"></span>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FechaSalida" class="form-label"></label>
+                            <input asp-for="FechaSalida" class="form-control" />
+                            <span asp-validation-for="FechaSalida" class="text-danger"></span>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="CantidadPersonas" class="form-label"></label>
+                            <input asp-for="CantidadPersonas" class="form-control" min="1" />
+                            <span asp-validation-for="CantidadPersonas" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input asp-for="Estado" class="form-check-input" />
+                        <label asp-for="Estado" class="form-check-label"></label>
                     </div>
 
                     <button type="submit" class="btn btn-warning">Guardar cambios</button>

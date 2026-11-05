@@ -18,6 +18,7 @@ namespace HotelLosPatitos.Services
         public List<Habitacion> ObtenerTodas()
         {
             return _contexto.Habitaciones
+                .OrderBy(h => h.Codigo)
                 .ToList()
                 .Select(ConvertirAModelo)
                 .ToList();
@@ -27,6 +28,7 @@ namespace HotelLosPatitos.Services
         {
             return _contexto.Habitaciones
                 .Where(h => h.Estado)
+                .OrderBy(h => h.Codigo)
                 .ToList()
                 .Select(ConvertirAModelo)
                 .ToList();
@@ -38,11 +40,25 @@ namespace HotelLosPatitos.Services
             return entidad == null ? null : ConvertirAModelo(entidad);
         }
 
+      
+        public bool ExisteCodigo(string codigo, int idHabitacionExcluir = 0)
+        {
+            return _contexto.Habitaciones
+                .Any(h => h.Codigo == codigo && h.IdHabitacion != idHabitacionExcluir);
+        }
+
+        public bool TieneReservas(int idHabitacion)
+        {
+            return _contexto.Reservas.Any(r => r.IdHabitacion == idHabitacion);
+        }
+
         public bool Agregar(Habitacion habitacion)
         {
             HabitacionEntidad entidad = ConvertirAEntidad(habitacion);
+            entidad.IdHabitacion = 0;
             entidad.Estado = true;
-            entidad.FechaDeRegistro = _fechaService.ObtenerFechaActual();
+            entidad.FechaRegistro = _fechaService.ObtenerFechaActual();
+            entidad.FechaModificacion = null;
 
             _contexto.Habitaciones.Add(entidad);
             return _contexto.SaveChanges() > 0;
@@ -50,20 +66,20 @@ namespace HotelLosPatitos.Services
 
         public bool Editar(Habitacion habitacion)
         {
-            HabitacionEntidad? entidad = _contexto.Habitaciones.Find(habitacion.Id);
+            HabitacionEntidad? entidad = _contexto.Habitaciones.Find(habitacion.IdHabitacion);
 
             if (entidad == null)
             {
                 return false;
             }
 
-            // Solo se actualizan los campos editables (código, nombre, baños y ubicación no cambian)
-            entidad.CantidadHuespedesPermitidos = habitacion.CantidadHuespedesPermitidos;
+            entidad.IdTipoHabitacion = habitacion.IdTipoHabitacion;
+            entidad.Descripcion = habitacion.Descripcion;
+            entidad.CantidadHuespedes = habitacion.CantidadHuespedes;
             entidad.CantidadCamas = habitacion.CantidadCamas;
-            entidad.TipoDeHabitacion = habitacion.TipoDeHabitacion;
-            entidad.CostoDeReserva = habitacion.CostoDeReserva;
+            entidad.PrecioPorNoche = habitacion.PrecioPorNoche;
             entidad.Estado = habitacion.Estado;
-            entidad.FechaDeModificacion = _fechaService.ObtenerFechaActual();
+            entidad.FechaModificacion = _fechaService.ObtenerFechaActual();
 
             return _contexto.SaveChanges() > 0;
         }
@@ -81,23 +97,24 @@ namespace HotelLosPatitos.Services
             return _contexto.SaveChanges() > 0;
         }
 
- 
+    
         private static Habitacion ConvertirAModelo(HabitacionEntidad entidad)
         {
             return new Habitacion
             {
-                Id = entidad.Id,
-                CodigoDeHabitacion = entidad.CodigoDeHabitacion,
-                NombreDeHabitacion = entidad.NombreHabitacion,
-                CantidadHuespedesPermitidos = entidad.CantidadHuespedesPermitidos,
+                IdHabitacion = entidad.IdHabitacion,
+                IdTipoHabitacion = entidad.IdTipoHabitacion,
+                Codigo = entidad.Codigo,
+                Nombre = entidad.Nombre,
+                Descripcion = entidad.Descripcion,
+                CantidadHuespedes = entidad.CantidadHuespedes,
                 CantidadCamas = entidad.CantidadCamas,
-                CantidadDeBanos = entidad.CantidadBanos,
+                CantidadBanos = entidad.CantidadBanos,
                 Ubicacion = entidad.Ubicacion,
-                TipoDeHabitacion = entidad.TipoDeHabitacion,
-                CostoDeReserva = entidad.CostoDeReserva,
-                FechaDeRegistro = entidad.FechaDeRegistro,
-                FechaDeModificacion = entidad.FechaDeModificacion,
-                Estado = entidad.Estado
+                PrecioPorNoche = entidad.PrecioPorNoche,
+                Estado = entidad.Estado,
+                FechaRegistro = entidad.FechaRegistro,
+                FechaModificacion = entidad.FechaModificacion
             };
         }
 
@@ -105,18 +122,19 @@ namespace HotelLosPatitos.Services
         {
             return new HabitacionEntidad
             {
-                Id = habitacion.Id,
-                CodigoDeHabitacion = habitacion.CodigoDeHabitacion,
-                NombreHabitacion = habitacion.NombreDeHabitacion,
-                CantidadHuespedesPermitidos = habitacion.CantidadHuespedesPermitidos,
+                IdHabitacion = habitacion.IdHabitacion,
+                IdTipoHabitacion = habitacion.IdTipoHabitacion,
+                Codigo = habitacion.Codigo,
+                Nombre = habitacion.Nombre,
+                Descripcion = habitacion.Descripcion,
+                CantidadHuespedes = habitacion.CantidadHuespedes,
                 CantidadCamas = habitacion.CantidadCamas,
-                CantidadBanos = habitacion.CantidadDeBanos,
+                CantidadBanos = habitacion.CantidadBanos,
                 Ubicacion = habitacion.Ubicacion,
-                TipoDeHabitacion = habitacion.TipoDeHabitacion,
-                CostoDeReserva = habitacion.CostoDeReserva,
-                FechaDeRegistro = habitacion.FechaDeRegistro,
-                FechaDeModificacion = habitacion.FechaDeModificacion,
-                Estado = habitacion.Estado
+                PrecioPorNoche = habitacion.PrecioPorNoche,
+                Estado = habitacion.Estado,
+                FechaRegistro = habitacion.FechaRegistro,
+                FechaModificacion = habitacion.FechaModificacion
             };
         }
     }

@@ -3,24 +3,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelLosPatitos.Data.Entidades
 {
- 
-    [Table("RESERVACIONES")]
+    [Table("RESERVA")]
     public class ReservaEntidad
     {
         [Key]
-        public int Id { get; set; }
+        [Column("IdReserva")]
+        public int IdReserva { get; set; }
 
+        [Column("IdUsuario")]
         public int IdUsuario { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
+        [Column("IdHabitacion")]
+        public int IdHabitacion { get; set; }
+
+        [Column("IdPaquete")]
+        public int IdPaquete { get; set; }
+
+        [Column("FechaEntrada")]
+        public DateTime FechaEntrada { get; set; }
+
+        [Column("FechaSalida")]
+        public DateTime FechaSalida { get; set; }
+
+        [Column("CantidadPersonas")]
+        public int CantidadPersonas { get; set; }
+
+        [Column("MontoTotal", TypeName = "decimal(18,2)")]
         public decimal MontoTotal { get; set; }
 
-        public DateTime FechaInicioReserva { get; set; }
+        [Column("Estado")]
+        public bool Estado { get; set; }
 
-        public DateTime FechaFinReserva { get; set; }
-
-        public DateTime FechaDeRegistro { get; set; }
-
-        public int IdHabitacion { get; set; }
+        [Column("FechaRegistro")]
+        public DateTime FechaRegistro { get; set; }
     }
 }

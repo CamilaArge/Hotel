@@ -1,0 +1,11 @@
+@model Habitacion
+
+@* Temporal hasta que exista la clase TipoHabitacion: los valores deben coincidir con la tabla TipoHabitacion *@
+<label asp-for="IdTipoHabitacion" class="form-label"></label>
+<select asp-for="IdTipoHabitacion" class="form-select">
+    <option value="0">Seleccione tipo</option>
+    <option value="1">Junior</option>
+    <option value="2">Superior</option>
+    <option value="3">Suite</option>
+</select>
+<span asp-validation-for="IdTipoHabitacion" class="text-danger"></span>

@@ -1,6 +1,7 @@
 using HotelLosPatitos.Data;
 using HotelLosPatitos.Data.Entidades;
 using HotelLosPatitos.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelLosPatitos.Services
 {
@@ -19,6 +20,7 @@ namespace HotelLosPatitos.Services
         {
             return _contexto.Reservas
                 .Where(r => r.IdHabitacion == idHabitacion)
+                .OrderByDescending(r => r.FechaEntrada)
                 .ToList()
                 .Select(ConvertirAModelo)
                 .ToList();
@@ -30,7 +32,20 @@ namespace HotelLosPatitos.Services
             return entidad == null ? null : ConvertirAModelo(entidad);
         }
 
-        // Devuelve el Id de la reserva creada (0 si no se pudo guardar)
+
+
+      
+        public bool HayChoqueDeFechas(Reserva reserva)
+        {
+            return _contexto.Reservas.Any(r =>
+                r.IdHabitacion == reserva.IdHabitacion &&
+                r.IdReserva != reserva.IdReserva &&
+                r.Estado &&
+                reserva.FechaEntrada.Date < r.FechaSalida &&
+                reserva.FechaSalida.Date > r.FechaEntrada);
+        }
+
+      
         public int Agregar(Reserva reserva)
         {
             HabitacionEntidad? habitacion = _contexto.Habitaciones.Find(reserva.IdHabitacion);
@@ -41,18 +56,20 @@ namespace HotelLosPatitos.Services
             }
 
             ReservaEntidad entidad = ConvertirAEntidad(reserva);
-            entidad.FechaDeRegistro = _fechaService.ObtenerFechaActual();
+            entidad.IdReserva = 0;
+            entidad.Estado = true;
+            entidad.FechaRegistro = _fechaService.ObtenerFechaActual();
             entidad.MontoTotal = CalcularMonto(reserva, habitacion);
 
             _contexto.Reservas.Add(entidad);
             _contexto.SaveChanges();
 
-            return entidad.Id;
+            return entidad.IdReserva;
         }
 
         public bool Editar(Reserva reserva)
         {
-            ReservaEntidad? entidad = _contexto.Reservas.Find(reserva.Id);
+            ReservaEntidad? entidad = _contexto.Reservas.Find(reserva.IdReserva);
             HabitacionEntidad? habitacion = _contexto.Habitaciones.Find(reserva.IdHabitacion);
 
             if (entidad == null || habitacion == null)
@@ -60,9 +77,12 @@ namespace HotelLosPatitos.Services
                 return false;
             }
 
-            entidad.FechaInicioReserva = reserva.FechaInicioReserva;
-            entidad.FechaFinReserva = reserva.FechaFinReserva;
+            // El usuario, el paquete y la fecha de registro no se modifican
             entidad.IdHabitacion = reserva.IdHabitacion;
+            entidad.FechaEntrada = reserva.FechaEntrada.Date;
+            entidad.FechaSalida = reserva.FechaSalida.Date;
+            entidad.CantidadPersonas = reserva.CantidadPersonas;
+            entidad.Estado = reserva.Estado;
             entidad.MontoTotal = CalcularMonto(reserva, habitacion);
 
             return _contexto.SaveChanges() > 0;
@@ -81,25 +101,28 @@ namespace HotelLosPatitos.Services
             return _contexto.SaveChanges() > 0;
         }
 
-        // Monto = noches * costo por noche + costo de limpieza
+   
         private static decimal CalcularMonto(Reserva reserva, HabitacionEntidad habitacion)
         {
-            int noches = (reserva.FechaFinReserva.Date - reserva.FechaInicioReserva.Date).Days;
-            return (noches * habitacion.CostoDeReserva);
+            int noches = (reserva.FechaSalida.Date - reserva.FechaEntrada.Date).Days;
+            return noches * habitacion.PrecioPorNoche;
         }
 
-        // ----- Conversiones entre el modelo de la base de datos y el modelo del sistema -----
-
+   
         private static Reserva ConvertirAModelo(ReservaEntidad entidad)
         {
             return new Reserva
             {
-                Id = entidad.Id,
+                IdReserva = entidad.IdReserva,
+                IdUsuario = entidad.IdUsuario,
+                IdHabitacion = entidad.IdHabitacion,
+                IdPaquete = entidad.IdPaquete,
+                FechaEntrada = entidad.FechaEntrada,
+                FechaSalida = entidad.FechaSalida,
+                CantidadPersonas = entidad.CantidadPersonas,
                 MontoTotal = entidad.MontoTotal,
-                FechaInicioReserva = entidad.FechaInicioReserva,
-                FechaFinReserva = entidad.FechaFinReserva,
-                FechaDeRegistro = entidad.FechaDeRegistro,
-                IdHabitacion = entidad.IdHabitacion
+                Estado = entidad.Estado,
+                FechaRegistro = entidad.FechaRegistro
             };
         }
 
@@ -107,12 +130,16 @@ namespace HotelLosPatitos.Services
         {
             return new ReservaEntidad
             {
-                Id = reserva.Id,
+                IdReserva = reserva.IdReserva,
+                IdUsuario = reserva.IdUsuario,
+                IdHabitacion = reserva.IdHabitacion,
+                IdPaquete = reserva.IdPaquete,
+                FechaEntrada = reserva.FechaEntrada.Date,
+                FechaSalida = reserva.FechaSalida.Date,
+                CantidadPersonas = reserva.CantidadPersonas,
                 MontoTotal = reserva.MontoTotal,
-                FechaInicioReserva = reserva.FechaInicioReserva,
-                FechaFinReserva = reserva.FechaFinReserva,
-                FechaDeRegistro = reserva.FechaDeRegistro,
-                IdHabitacion = reserva.IdHabitacion
+                Estado = reserva.Estado,
+                FechaRegistro = reserva.FechaRegistro
             };
         }
     }

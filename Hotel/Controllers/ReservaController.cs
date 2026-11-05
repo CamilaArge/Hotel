@@ -201,9 +201,9 @@ namespace HotelLosPatitos.Controllers
 
         private void ValidarFechas(Reserva reserva)
         {
-            if (reserva.FechaFinReserva.Date <= reserva.FechaInicioReserva.Date)
+            if (reserva.FechaSalida.Date <= reserva.FechaEntrada.Date)
             {
-                ModelState.AddModelError(nameof(Reserva.FechaFinReserva),
+                ModelState.AddModelError(nameof(Reserva.FechaSalida),
                     "La fecha de salida debe ser posterior a la fecha de entrada.");
             }
         }

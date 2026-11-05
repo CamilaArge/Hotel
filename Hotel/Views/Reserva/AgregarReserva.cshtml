@@ -13,8 +13,9 @@
                 @if (habitacion != null)
                 {
                     <p class="text-muted">
-                        Habitación: <strong>@habitacion.NombreDeHabitacion</strong> (@habitacion.TipoTexto) ·
-                        Costo por noche: @habitacion.CostoDeReserva.ToString("N2") 
+                        Habitación: <strong>@habitacion.Nombre</strong> (@habitacion.TipoTexto) ·
+                        Máximo @habitacion.CantidadHuespedes huéspedes ·
+                        Precio por noche: @habitacion.PrecioPorNoche.ToString("N2")
                     </p>
                 }
 
@@ -23,22 +24,26 @@
                 <form asp-action="AgregarReserva" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="IdHabitacion" />
-       
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="FechaInicioReserva" class="form-label"></label>
-                            <input asp-for="FechaInicioReserva" class="form-control" />
-                            <span asp-validation-for="FechaInicioReserva" class="text-danger"></span>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FechaEntrada" class="form-label"></label>
+                            <input asp-for="FechaEntrada" class="form-control" />
+                            <span asp-validation-for="FechaEntrada" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="FechaFinReserva" class="form-label"></label>
-                            <input asp-for="FechaFinReserva" class="form-control" />
-                            <span asp-validation-for="FechaFinReserva" class="text-danger"></span>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FechaSalida" class="form-label"></label>
+                            <input asp-for="FechaSalida" class="form-control" />
+                            <span asp-validation-for="FechaSalida" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="CantidadPersonas" class="form-label"></label>
+                            <input asp-for="CantidadPersonas" class="form-control" min="1" max="@habitacion?.CantidadHuespedes" />
+                            <span asp-validation-for="CantidadPersonas" class="text-danger"></span>
                         </div>
                     </div>
 
-                    <p class="text-muted small">El monto total se calcula automáticamente: noches × costo por noche + costo de limpieza.</p>
+                    <p class="text-muted small">El monto total se calcula automáticamente: noches × precio por noche.</p>
 
                     <button type="submit" class="btn btn-success">Reservar</button>
                     <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>

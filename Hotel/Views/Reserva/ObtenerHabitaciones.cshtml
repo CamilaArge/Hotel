@@ -31,7 +31,7 @@
                         <th>Baños</th>
                         <th>Ubicación</th>
                         <th>Tipo</th>
-                        <th>Costo por noche</th>
+                        <th>Precio por noche</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -46,15 +46,15 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.NombreDeHabitacion</td>
-                            <td>@item.CantidadHuespedesPermitidos</td>
+                            <td>@item.Nombre</td>
+                            <td>@item.CantidadHuespedes</td>
                             <td>@item.CantidadCamas</td>
-                            <td>@item.CantidadDeBanos</td>
+                            <td>@item.CantidadBanos</td>
                             <td>@item.Ubicacion</td>
                             <td>@item.TipoTexto</td>
-                            <td>@item.CostoDeReserva.ToString("N2")</td>
+                            <td>@item.PrecioPorNoche.ToString("N2")</td>
                             <td>
-                                <a asp-action="AgregarReserva" asp-route-idHabitacion="@item.Id" class="btn btn-success btn-sm">Reservar</a>
+                                <a asp-action="AgregarReserva" asp-route-idHabitacion="@item.IdHabitacion" class="btn btn-success btn-sm">Reservar</a>
                             </td>
                         </tr>
                     }

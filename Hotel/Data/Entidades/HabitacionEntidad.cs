@@ -3,35 +3,47 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelLosPatitos.Data.Entidades
 {
-   
-    [Table("HABITACIONES")]
+    [Table("HABITACION")]
     public class HabitacionEntidad
     {
         [Key]
-        [Column("ID")]
-        public int Id { get; set; }
+        [Column("IdHabitacion")]
+        public int IdHabitacion { get; set; }
 
-        public string CodigoDeHabitacion { get; set; } = string.Empty;
+        [Column("IdTipoHabitacion")]
+        public int IdTipoHabitacion { get; set; }
 
-        public string NombreHabitacion { get; set; } = string.Empty;
+        [Column("Codigo")]
+        public string Codigo { get; set; } = string.Empty;
 
-        public int CantidadHuespedesPermitidos { get; set; }
+        [Column("Nombre")]
+        public string Nombre { get; set; } = string.Empty;
 
+        [Column("Descripcion")]
+        public string Descripcion { get; set; } = string.Empty;
+
+        [Column("CantidadHuespedes")]
+        public int CantidadHuespedes { get; set; }
+
+        [Column("CantidadCamas")]
         public int CantidadCamas { get; set; }
 
+        [Column("CantidadBanos")]
         public int CantidadBanos { get; set; }
 
+        [Column("Ubicacion")]
         public string Ubicacion { get; set; } = string.Empty;
 
-        public int TipoDeHabitacion { get; set; }
+        [Column("PrecioPorNoche", TypeName = "decimal(18,2)")]
+        public decimal PrecioPorNoche { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal CostoDeReserva { get; set; }
-
-        public DateTime FechaDeRegistro { get; set; }
-
-        public DateTime? FechaDeModificacion { get; set; }
-
+        [Column("Estado")]
         public bool Estado { get; set; }
+
+        [Column("FechaRegistro")]
+        public DateTime FechaRegistro { get; set; }
+
+        [Column("FechaModificacion")]
+        public DateTime? FechaModificacion { get; set; }
     }
 }

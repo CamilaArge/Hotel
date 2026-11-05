@@ -1,83 +1,165 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HotelLosPatitos.Models;
+using HotelLosPatitos.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hotel.Controllers
+namespace HotelLosPatitos.Controllers
 {
+  
+    [Authorize(Roles = Roles.Administrador)]
     public class HabitacionController : Controller
     {
-        // GET: HabitacionController
-        public ActionResult Index()
+        private readonly HabitacionService _habitacionService;
+
+        public HabitacionController(HabitacionService habitacionService)
         {
-            return View();
+            _habitacionService = habitacionService;
         }
 
-        // GET: HabitacionController/Details/5
-        public ActionResult Details(int id)
+        // GET: Habitacion/ObtenerHabitaciones
+        public IActionResult ObtenerHabitaciones()
         {
-            return View();
+            List<Habitacion> habitaciones = _habitacionService.ObtenerTodas();
+            return View(habitaciones);
         }
 
-        // GET: HabitacionController/Create
-        public ActionResult Create()
+        // GET: Habitacion/Detalles/5
+        public IActionResult Detalles(int id)
         {
-            return View();
+            Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
+
+            if (habitacion == null)
+            {
+                return NotFound();
+            }
+
+            return View(habitacion);
         }
 
-        // POST: HabitacionController/Create
+        // GET: Habitacion/AgregarHabitacion
+        public IActionResult AgregarHabitacion()
+        {
+            return View(new Habitacion());
+        }
+
+        // POST: Habitacion/AgregarHabitacion
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult AgregarHabitacion(Habitacion habitacion)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(habitacion.Codigo) && _habitacionService.ExisteCodigo(habitacion.Codigo))
             {
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError(nameof(Habitacion.Codigo), "Ya existe una habitación con ese código.");
             }
-            catch
+
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    if (_habitacionService.Agregar(habitacion))
+                    {
+                        TempData["Mensaje"] = "La habitación se agregó correctamente.";
+                        return RedirectToAction(nameof(ObtenerHabitaciones));
+                    }
+
+                    ViewBag.Error = "No se pudo guardar la habitación.";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error al guardar la habitación: " + (ex.InnerException?.Message ?? ex.Message);
+                }
             }
+
+            return View(habitacion);
         }
 
-        // GET: HabitacionController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Habitacion/Editar/5
+        public IActionResult Editar(int id)
         {
-            return View();
+            Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
+
+            if (habitacion == null)
+            {
+                return NotFound();
+            }
+
+            return View(habitacion);
         }
 
-        // POST: HabitacionController/Edit/5
+        // POST: Habitacion/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Editar(Habitacion habitacion)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    if (_habitacionService.Editar(habitacion))
+                    {
+                        TempData["Mensaje"] = "La habitación se actualizó correctamente.";
+                        return RedirectToAction(nameof(ObtenerHabitaciones));
+                    }
+
+                    ViewBag.Error = "No se pudo actualizar la habitación.";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Error al actualizar la habitación: " + (ex.InnerException?.Message ?? ex.Message);
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(habitacion);
         }
 
-        // GET: HabitacionController/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Habitacion/Eliminar/5
+        public IActionResult Eliminar(int id)
         {
-            return View();
+            Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
+
+            if (habitacion == null)
+            {
+                return NotFound();
+            }
+
+            return View(habitacion);
         }
 
-        // POST: HabitacionController/Delete/5
-        [HttpPost]
+        // POST: Habitacion/Eliminar/5
+        [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult ConfirmarEliminar(int id)
         {
+            Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
+
+            if (habitacion == null)
+            {
+                return NotFound();
+            }
+
+         
+            if (_habitacionService.TieneReservas(id))
+            {
+                ViewBag.Error = "No se puede eliminar la habitación porque tiene reservas. Puede desactivarla desde Editar.";
+                return View(habitacion);
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (_habitacionService.Eliminar(id))
+                {
+                    TempData["Mensaje"] = "La habitación se eliminó correctamente.";
+                    return RedirectToAction(nameof(ObtenerHabitaciones));
+                }
+
+                ViewBag.Error = "No se pudo eliminar la habitación.";
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Error = "Error al eliminar la habitación: " + (ex.InnerException?.Message ?? ex.Message);
             }
+
+            return View(habitacion);
         }
     }
 }

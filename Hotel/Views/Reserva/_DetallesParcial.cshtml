@@ -1,20 +1,35 @@
 @model Reserva
 
+@{
+    var habitacion = ViewBag.Habitacion as Habitacion;
+}
+
 @* Datos de la reserva, se usa en Detalles, Eliminar y en el modal del buscador *@
 <dl class="row mb-0">
     <dt class="col-sm-4">Número de reservación</dt>
-    <dd class="col-sm-8">@Model.Id</dd>
+    <dd class="col-sm-8">@Model.IdReserva</dd>
 
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.IdHabitacion)</dt>
+    <dd class="col-sm-8">@(habitacion != null ? $"{habitacion.Codigo} - {habitacion.Nombre}" : Model.IdHabitacion.ToString())</dd>
 
-    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaInicioReserva)</dt>
-    <dd class="col-sm-8">@Model.FechaInicioReserva.ToString("dd/MM/yyyy")</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaEntrada)</dt>
+    <dd class="col-sm-8">@Model.FechaEntrada.ToString("dd/MM/yyyy")</dd>
 
-    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaFinReserva)</dt>
-    <dd class="col-sm-8">@Model.FechaFinReserva.ToString("dd/MM/yyyy")</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaSalida)</dt>
+    <dd class="col-sm-8">@Model.FechaSalida.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-4">Noches</dt>
+    <dd class="col-sm-8">@((Model.FechaSalida.Date - Model.FechaEntrada.Date).Days)</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.CantidadPersonas)</dt>
+    <dd class="col-sm-8">@Model.CantidadPersonas</dd>
 
     <dt class="col-sm-4">@Html.DisplayNameFor(m => m.MontoTotal)</dt>
     <dd class="col-sm-8 fw-bold">@Model.MontoTotal.ToString("N2")</dd>
 
-    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaDeRegistro)</dt>
-    <dd class="col-sm-8">@Model.FechaDeRegistro.ToString("dd/MM/yyyy HH:mm")</dd>
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Estado)</dt>
+    <dd class="col-sm-8">@(Model.Estado ? "Sí" : "No")</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaRegistro)</dt>
+    <dd class="col-sm-8">@Model.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</dd>
 </dl>
