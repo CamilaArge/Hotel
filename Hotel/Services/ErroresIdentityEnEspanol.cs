@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelLosPatitos.Services
+namespace Hotel.Services
 {
    
     public class ErroresIdentityEnEspanol : IdentityErrorDescriber

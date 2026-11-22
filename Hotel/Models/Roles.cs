@@ -1,4 +1,4 @@
-namespace HotelLosPatitos.Models
+namespace Hotel.Models
 {
   
     public static class Roles

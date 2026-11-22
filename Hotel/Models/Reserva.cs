@@ -1,14 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelLosPatitos.Models
+namespace Hotel.Models
 {
     public class Reserva
     {
         public int IdReserva { get; set; }
 
         [Display(Name = "Usuario")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar un usuario válido")]
-        public int IdUsuario { get; set; }
+        public string? IdUsuario { get; set; }
 
         [Display(Name = "Habitación")]
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar una habitación válida")]

@@ -1,10 +1,10 @@
-﻿using HotelLosPatitos.Models;
+﻿using Hotel.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
-namespace HotelLosPatitos.Controllers
+namespace Hotel.Controllers
 {
     public class AccountController : Controller
     {

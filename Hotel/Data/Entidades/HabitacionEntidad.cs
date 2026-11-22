@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HotelLosPatitos.Data.Entidades
+namespace Hotel.Data.Entidades
 {
     [Table("HABITACION")]
     public class HabitacionEntidad

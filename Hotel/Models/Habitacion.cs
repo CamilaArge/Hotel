@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelLosPatitos.Models
+namespace Hotel.Models
 {
     public class Habitacion
     {
@@ -59,14 +59,6 @@ namespace HotelLosPatitos.Models
         [Display(Name = "Fecha de modificación")]
         public DateTime? FechaModificacion { get; set; }
 
-        // Temporal hasta que exista la clase TipoHabitacion.
-        // Los Id deben coincidir con los registros de la tabla TipoHabitacion.
-        public string TipoTexto => IdTipoHabitacion switch
-        {
-            1 => "Junior",
-            2 => "Superior",
-            3 => "Suite",
-            _ => "Sin tipo"
-        };
+        public string TipoTexto { get; set; } = "Sin tipo";
     }
 }

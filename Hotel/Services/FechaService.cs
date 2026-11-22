@@ -1,4 +1,4 @@
-namespace HotelLosPatitos.Services
+namespace Hotel.Services
 {
     public class FechaService
     {
@@ -6,7 +6,7 @@ namespace HotelLosPatitos.Services
 
         public FechaService(IConfiguration configuration)
         {
-            // Se lee "ZonaHoraria" de appsettings.json (en Costa Rica es -6)
+           
             _zonaHoraria = configuration.GetValue<int>("ZonaHoraria");
         }
 

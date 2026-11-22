@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HotelLosPatitos.Data.Entidades
+namespace Hotel.Data.Entidades
 {
     [Table("RESERVA")]
     public class ReservaEntidad
@@ -11,7 +11,7 @@ namespace HotelLosPatitos.Data.Entidades
         public int IdReserva { get; set; }
 
         [Column("IdUsuario")]
-        public int IdUsuario { get; set; }
+        public string IdUsuario { get; set; }
 
         [Column("IdHabitacion")]
         public int IdHabitacion { get; set; }

@@ -1,8 +1,8 @@
-using HotelLosPatitos.Data;
-using HotelLosPatitos.Data.Entidades;
-using HotelLosPatitos.Models;
+using Hotel.Data;
+using Hotel.Data.Entidades;
+using Hotel.Models;
 
-namespace HotelLosPatitos.Services
+namespace Hotel.Services
 {
     public class HabitacionService
     {
@@ -17,45 +17,63 @@ namespace HotelLosPatitos.Services
 
         public List<Habitacion> ObtenerTodas()
         {
+            Dictionary<int, string> tipos = ObtenerNombresTipos();
+
             return _contexto.Habitaciones
                 .OrderBy(h => h.Codigo)
                 .ToList()
-                .Select(ConvertirAModelo)
+                .Select(h => ConvertirAModelo(h, tipos))
                 .ToList();
         }
 
         public List<Habitacion> ObtenerActivas()
         {
+            Dictionary<int, string> tipos = ObtenerNombresTipos();
+
             return _contexto.Habitaciones
                 .Where(h => h.Estado)
                 .OrderBy(h => h.Codigo)
                 .ToList()
-                .Select(ConvertirAModelo)
+                .Select(h => ConvertirAModelo(h, tipos))
                 .ToList();
         }
 
         public Habitacion? ObtenerPorId(int id)
         {
             HabitacionEntidad? entidad = _contexto.Habitaciones.Find(id);
-            return entidad == null ? null : ConvertirAModelo(entidad);
+            return entidad == null ? null : ConvertirAModelo(entidad, ObtenerNombresTipos());
         }
 
-      
-        public bool ExisteCodigo(string codigo, int idHabitacionExcluir = 0)
+        
+        public bool ExisteCodigo(string codigo, int idExcluir = 0)
         {
+            string codigoLimpio = codigo.Trim().ToUpper();
+
             return _contexto.Habitaciones
-                .Any(h => h.Codigo == codigo && h.IdHabitacion != idHabitacionExcluir);
+                .Any(h => h.Codigo.ToUpper() == codigoLimpio && h.IdHabitacion != idExcluir);
         }
 
+       
         public bool TieneReservas(int idHabitacion)
         {
             return _contexto.Reservas.Any(r => r.IdHabitacion == idHabitacion);
         }
 
+
+        public bool TieneReservasVigentes(int idHabitacion)
+        {
+            DateTime hoy = _fechaService.ObtenerFechaActual().Date;
+
+            return _contexto.Reservas.Any(r =>
+                r.IdHabitacion == idHabitacion &&
+                r.Estado &&
+                r.FechaSalida >= hoy);
+        }
+
         public bool Agregar(Habitacion habitacion)
         {
             HabitacionEntidad entidad = ConvertirAEntidad(habitacion);
-            entidad.IdHabitacion = 0;
+            entidad.Codigo = entidad.Codigo.Trim();
             entidad.Estado = true;
             entidad.FechaRegistro = _fechaService.ObtenerFechaActual();
             entidad.FechaModificacion = null;
@@ -73,6 +91,7 @@ namespace HotelLosPatitos.Services
                 return false;
             }
 
+            // Solo se actualizan los campos editables (código, nombre, baños y ubicación no cambian)
             entidad.IdTipoHabitacion = habitacion.IdTipoHabitacion;
             entidad.Descripcion = habitacion.Descripcion;
             entidad.CantidadHuespedes = habitacion.CantidadHuespedes;
@@ -97,13 +116,22 @@ namespace HotelLosPatitos.Services
             return _contexto.SaveChanges() > 0;
         }
 
-    
-        private static Habitacion ConvertirAModelo(HabitacionEntidad entidad)
+        // Nombres de los tipos desde la tabla TipoHabitacion (son pocos, se leen de una vez)
+        private Dictionary<int, string> ObtenerNombresTipos()
+        {
+            return _contexto.TiposHabitacion
+                .ToDictionary(t => t.IdTipoHabitacion, t => t.Nombre);
+        }
+
+        // ----- Conversiones entre la entidad de la base de datos y el modelo del sistema -----
+
+        private static Habitacion ConvertirAModelo(HabitacionEntidad entidad, Dictionary<int, string> tipos)
         {
             return new Habitacion
             {
                 IdHabitacion = entidad.IdHabitacion,
                 IdTipoHabitacion = entidad.IdTipoHabitacion,
+                TipoTexto = tipos.TryGetValue(entidad.IdTipoHabitacion, out string? nombreTipo) ? nombreTipo : "Sin tipo",
                 Codigo = entidad.Codigo,
                 Nombre = entidad.Nombre,
                 Descripcion = entidad.Descripcion,

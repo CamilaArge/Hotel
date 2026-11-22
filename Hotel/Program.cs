@@ -1,10 +1,11 @@
-using System.Globalization;
-using HotelLosPatitos.Data;
-using HotelLosPatitos.Models;
-using HotelLosPatitos.Services;
+using Hotel.Models;
+using Hotel.Services;
+using Hotel.Data;
+using Hotel.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HotelContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Contexto")));
 
-// Login con usuarios y roles (mismas reglas de contraseña que el proyecto anterior)
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -38,10 +39,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddScoped<FechaService>();
 builder.Services.AddScoped<HabitacionService>();
 builder.Services.AddScoped<ReservaService>();
+builder.Services.AddScoped<TipoHabitacionService>();
 
 var app = builder.Build();
 
-// Crea los roles Administrador y Cliente si todavía no existen
+
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();

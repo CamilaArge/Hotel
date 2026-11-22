@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using HotelLosPatitos.Models;
+using Hotel.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelLosPatitos.Controllers
+namespace Hotel.Controllers
 {
     public class HomeController : Controller
     {

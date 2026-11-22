@@ -1,9 +1,9 @@
-using HotelLosPatitos.Data.Entidades;
+using Hotel.Data.Entidades;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelLosPatitos.Data
+namespace Hotel.Data
 {
 
     public class HotelContext : IdentityDbContext<IdentityUser>
@@ -13,6 +13,9 @@ namespace HotelLosPatitos.Data
         }
 
         public DbSet<HabitacionEntidad> Habitaciones { get; set; }
+
         public DbSet<ReservaEntidad> Reservas { get; set; }
+
+        public DbSet<TipoHabitacionEntidad> TiposHabitacion { get; set; }
     }
 }

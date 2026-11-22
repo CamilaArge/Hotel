@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelLosPatitos.Models
+namespace Hotel.Models
 {
     public class RegisterViewModel
     {

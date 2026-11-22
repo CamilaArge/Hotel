@@ -1,11 +1,13 @@
-using HotelLosPatitos.Models;
-using HotelLosPatitos.Services;
+using System.Security.Claims;
+using Hotel.Models;
+using Hotel.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HotelLosPatitos.Controllers
+namespace Hotel.Controllers
 {
-    // Hay que iniciar sesión para usar el módulo; cada acción indica qué rol la puede usar
+   
     [Authorize]
     public class ReservaController : Controller
     {
@@ -18,7 +20,7 @@ namespace HotelLosPatitos.Controllers
             _habitacionService = habitacionService;
         }
 
-        // GET: Reserva/ObtenerHabitaciones  (habitaciones activas disponibles para reservar)
+        // GET: Reserva/ObtenerHabitaciones  
         [Authorize(Roles = Roles.Cliente)]
         public IActionResult ObtenerHabitaciones()
         {
@@ -46,7 +48,7 @@ namespace HotelLosPatitos.Controllers
         [Authorize(Roles = Roles.Cliente)]
         public IActionResult Detalles(int idReservacion)
         {
-            Reserva? reserva = _reservaService.ObtenerPorId(idReservacion);
+            Reserva? reserva = ObtenerReservaVisible(idReservacion);
 
             if (reserva == null)
             {
@@ -57,11 +59,11 @@ namespace HotelLosPatitos.Controllers
             return View(reserva);
         }
 
-        // GET: Reserva/DetallesParcial?idReservacion=5  (se usa desde el buscador con AJAX)
+        // GET
         [Authorize(Roles = Roles.Cliente)]
         public IActionResult DetallesParcial(int idReservacion)
         {
-            Reserva? reserva = _reservaService.ObtenerPorId(idReservacion);
+            Reserva? reserva = ObtenerReservaVisible(idReservacion);
 
             if (reserva == null)
             {
@@ -92,13 +94,14 @@ namespace HotelLosPatitos.Controllers
         [Authorize(Roles = Roles.Cliente)]
         public IActionResult AgregarReserva(Reserva reserva)
         {
-            ValidarFechas(reserva);
+            AgregarErroresDeNegocio(reserva, esNueva: true);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    int idReserva = _reservaService.Agregar(reserva);
+                    string? idUsuario = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    int idReserva = _reservaService.Agregar(reserva, idUsuario);
 
                     if (idReserva > 0)
                     {
@@ -128,16 +131,23 @@ namespace HotelLosPatitos.Controllers
                 return NotFound();
             }
 
+            if (!reserva.Estado)
+            {
+                TempData["Mensaje"] = "Una reserva cancelada no se puede modificar.";
+                return RedirectToAction(nameof(ObtenerReservas), new { idHabitacion = reserva.IdHabitacion });
+            }
+
+            CargarHabitaciones(reserva.IdHabitacion);
             return View(reserva);
         }
 
-        // POST: Reserva/Editar/5
+        // POST: Reserva/Editar
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = Roles.Administrador)]
         public IActionResult Editar(Reserva reserva)
         {
-            ValidarFechas(reserva);
+            AgregarErroresDeNegocio(reserva, esNueva: false);
 
             if (ModelState.IsValid)
             {
@@ -157,12 +167,13 @@ namespace HotelLosPatitos.Controllers
                 }
             }
 
+            CargarHabitaciones(reserva.IdHabitacion);
             return View(reserva);
         }
 
-        // GET: Reserva/Eliminar/5
+        // GET: Reserva/Cancelar/5
         [Authorize(Roles = Roles.Administrador)]
-        public IActionResult Eliminar(int id)
+        public IActionResult Cancelar(int id)
         {
             Reserva? reserva = _reservaService.ObtenerPorId(id);
 
@@ -174,11 +185,11 @@ namespace HotelLosPatitos.Controllers
             return View(reserva);
         }
 
-        // POST: Reserva/Eliminar/5
-        [HttpPost, ActionName("Eliminar")]
+        // POST: Reserva/Cancelar/5
+        [HttpPost, ActionName("Cancelar")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = Roles.Administrador)]
-        public IActionResult ConfirmarEliminar(int id)
+        public IActionResult ConfirmarCancelar(int id)
         {
             Reserva? reserva = _reservaService.ObtenerPorId(id);
 
@@ -187,25 +198,43 @@ namespace HotelLosPatitos.Controllers
                 return NotFound();
             }
 
-            int idHabitacion = reserva.IdHabitacion;
-
-            if (_reservaService.Eliminar(id))
+            if (_reservaService.Cancelar(id))
             {
-                TempData["Mensaje"] = "La reserva se eliminó correctamente.";
-                return RedirectToAction(nameof(ObtenerReservas), new { idHabitacion });
+                TempData["Mensaje"] = "La reserva se canceló correctamente.";
+                return RedirectToAction(nameof(ObtenerReservas), new { idHabitacion = reserva.IdHabitacion });
             }
 
-            ViewBag.Error = "No se pudo eliminar la reserva.";
+            ViewBag.Error = "No se pudo cancelar la reserva (puede que ya esté cancelada).";
             return View(reserva);
         }
 
-        private void ValidarFechas(Reserva reserva)
+     
+        private Reserva? ObtenerReservaVisible(int idReservacion)
         {
-            if (reserva.FechaSalida.Date <= reserva.FechaEntrada.Date)
+            Reserva? reserva = _reservaService.ObtenerPorId(idReservacion);
+
+            if (reserva == null)
             {
-                ModelState.AddModelError(nameof(Reserva.FechaSalida),
-                    "La fecha de salida debe ser posterior a la fecha de entrada.");
+                return null;
             }
+
+            string? idUsuario = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return reserva.IdUsuario == idUsuario ? reserva : null;
+        }
+
+      
+        private void AgregarErroresDeNegocio(Reserva reserva, bool esNueva)
+        {
+            foreach (var (campo, mensaje) in _reservaService.Validar(reserva, esNueva))
+            {
+                ModelState.AddModelError(campo, mensaje);
+            }
+        }
+
+        private void CargarHabitaciones(int idSeleccionada)
+        {
+            ViewBag.Habitaciones = new SelectList(
+                _habitacionService.ObtenerActivas(), "IdHabitacion", "Nombre", idSeleccionada);
         }
     }
 }
