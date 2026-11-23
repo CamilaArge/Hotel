@@ -12,7 +12,7 @@ namespace Hotel.Data.Entidades
         public int IdPago { get; set; }
 
 
-        public string IdUsuario { get; set; } = string.Empty;
+        public int IdUsuario { get; set; }
 
         public string Motivo { get; set; } = string.Empty;
 

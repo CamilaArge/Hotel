@@ -9,8 +9,8 @@ namespace Hotel.Data.Entidades
         [Key]
         public int IdReserva { get; set; }
 
-   
-        public string IdUsuario { get; set; } = string.Empty;
+
+        public int IdUsuario { get; set; }
 
         public int IdHabitacion { get; set; }
 

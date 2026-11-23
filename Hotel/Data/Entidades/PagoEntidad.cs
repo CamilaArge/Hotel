@@ -11,8 +11,8 @@ namespace Hotel.Data.Entidades
 
         public int IdReserva { get; set; }
 
-     
-        public string IdUsuarioRegistro { get; set; } = string.Empty;
+
+        public int IdUsuarioRegistro { get; set; }
 
         [Column(TypeName = "decimal(12,2)")]
         public decimal Monto { get; set; }

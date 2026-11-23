@@ -63,8 +63,10 @@ namespace Hotel.Services
 
         public List<Reserva> ObtenerPorUsuario(string idUsuario)
         {
+            int idUsuarioInterno = _usuarioService.AsegurarRegistro(idUsuario);
+
             return CompletarInfo(_contexto.Reservas
-                .Where(r => r.IdUsuario == idUsuario)
+                .Where(r => r.IdUsuario == idUsuarioInterno)
                 .OrderByDescending(r => r.FechaEntrada)
                 .ToList());
         }
@@ -222,11 +224,17 @@ namespace Hotel.Services
         
         public int Agregar(Reserva reserva, string idUsuario)
         {
+            // Convertir el ID de Identity al ID interno de Usuario (int)
+            int idUsuarioInterno = _usuarioService.AsegurarRegistro(idUsuario);
+
             HabitacionEntidad habitacion = _contexto.Habitaciones.Find(reserva.IdHabitacion)
                 ?? throw new InvalidOperationException("La habitación no existe.");
-            PaqueteEntidad? paquete = reserva.IdPaquete.HasValue ? _contexto.Paquetes.Find(reserva.IdPaquete.Value) : null;
 
-        
+            PaqueteEntidad? paquete = reserva.IdPaquete.HasValue
+                ? _contexto.Paquetes.Find(reserva.IdPaquete.Value)
+                : null;
+
+
             using var transaccion = _contexto.Database.BeginTransaction(IsolationLevel.Serializable);
 
             if (HayConflicto(reserva.IdHabitacion, reserva.FechaEntrada, reserva.FechaSalida))
@@ -237,7 +245,7 @@ namespace Hotel.Services
 
             ReservaEntidad entidad = new()
             {
-                IdUsuario = idUsuario,
+                IdUsuario = idUsuarioInterno,
                 IdHabitacion = reserva.IdHabitacion,
                 IdPaquete = reserva.IdPaquete,
                 FechaEntrada = reserva.FechaEntrada.Date,
@@ -342,7 +350,7 @@ namespace Hotel.Services
                     .Where(p => p.IdReserva == e.IdReserva && p.Estado == EstadosPago.Aplicado)
                     .Sum(p => (decimal?)p.Monto) ?? 0m;
 
-                var huespedes = _usuarioService.ObtenerNombres(new List<string> { e.IdUsuario });
+                var huespedes = _usuarioService.ObtenerNombres(new List<int> { e.IdUsuario });
 
                 string estadoTexto;
 
@@ -366,7 +374,7 @@ namespace Hotel.Services
                 Reserva reserva = new Reserva
                 {
                     IdReserva = e.IdReserva,
-                    IdUsuario = e.IdUsuario,
+                    IdUsuario = e.IdUsuario.ToString(),
                     IdHabitacion = e.IdHabitacion,
                     IdPaquete = e.IdPaquete,
                     FechaEntrada = e.FechaEntrada,
@@ -378,7 +386,7 @@ namespace Hotel.Services
 
                     HuespedTexto = huespedes.ContainsKey(e.IdUsuario)
                         ? huespedes[e.IdUsuario]
-                        : e.IdUsuario,
+                        : e.IdUsuario.ToString(),
 
                     HabitacionTexto = habitacion != null
                         ? habitacion.Codigo + " - " + habitacion.Nombre

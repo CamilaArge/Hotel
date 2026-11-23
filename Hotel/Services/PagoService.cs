@@ -146,7 +146,7 @@ namespace Hotel.Services
 
         public int Registrar(RegistrarPagoViewModel pago, string idUsuarioSesion)
         {
-            string idUsuario = _usuarioService.AsegurarRegistro(idUsuarioSesion);
+            int idUsuario = _usuarioService.AsegurarRegistro(idUsuarioSesion);
             DateTime ahora = _fechaService.ObtenerFechaActual();
 
           
@@ -195,8 +195,8 @@ namespace Hotel.Services
             {
                 return "Este pago ya fue anulado.";
             }
-
-            string idUsuario = _usuarioService.AsegurarRegistro(idUsuarioSesion);
+            
+            int idUsuario = _usuarioService.AsegurarRegistro(idUsuarioSesion);
 
             using var transaccion = _contexto.Database.BeginTransaction();
 
@@ -230,8 +230,9 @@ namespace Hotel.Services
                 .Where(a => idsPago.Contains(a.IdPago))
                 .ToDictionary(a => a.IdPago);
 
-            Dictionary<string, string> nombres = _usuarioService.ObtenerNombres(
-                entidades.Select(p => p.IdUsuarioRegistro).Concat(anulaciones.Values.Select(a => a.IdUsuario)));
+            Dictionary<int, string> nombres = _usuarioService.ObtenerNombres(
+                entidades.Select(p => p.IdUsuarioRegistro)
+                    .Concat(anulaciones.Values.Select(a => a.IdUsuario)));
 
             return entidades.Select(p =>
             {
@@ -245,9 +246,13 @@ namespace Hotel.Services
                     FechaPago = p.FechaPago,
                     MetodoPago = p.MetodoPago,
                     Estado = p.Estado,
-                    RegistradoPor = nombres.TryGetValue(p.IdUsuarioRegistro, out string? r) ? r : p.IdUsuarioRegistro,
+                    RegistradoPor = nombres.TryGetValue(p.IdUsuarioRegistro, out string? r)
+                                    ? r
+                                    : p.IdUsuarioRegistro.ToString(),
                     AnuladoPor = anulacion == null ? null
-                        : nombres.TryGetValue(anulacion.IdUsuario, out string? a) ? a : anulacion.IdUsuario,
+                                : nombres.TryGetValue(anulacion.IdUsuario, out string? a)
+                                    ? a
+                                    : anulacion.IdUsuario.ToString(),
                     MotivoAnulacion = anulacion?.Motivo,
                     FechaAnulacion = anulacion?.FechaAnulacion
                 };

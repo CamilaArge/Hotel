@@ -1,5 +1,5 @@
-﻿using Hotel.Models;
-using Hotel.Data;
+﻿using Hotel.Data;
+using Hotel.Models;
 using Hotel.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -12,9 +12,10 @@ builder.Services.AddControllersWithViews();
 
 // Base de datos
 builder.Services.AddDbContext<HotelContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Contexto")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("Contexto")));
 
-
+// ASP.NET Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -24,9 +25,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
 })
-    .AddEntityFrameworkStores<HotelContext>()
-    .AddErrorDescriber<ErroresIdentityEnEspanol>()
-    .AddDefaultTokenProviders();
+.AddEntityFrameworkStores<HotelContext>()
+.AddErrorDescriber<ErroresIdentityEnEspanol>()
+.AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -44,10 +45,11 @@ builder.Services.AddScoped<PagoService>();
 
 var app = builder.Build();
 
-
+// Crear roles si no existen
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roleManager = scope.ServiceProvider
+        .GetRequiredService<RoleManager<IdentityRole>>();
 
     foreach (string rol in Roles.Todos)
     {

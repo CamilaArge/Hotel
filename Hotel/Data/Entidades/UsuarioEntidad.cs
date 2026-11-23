@@ -8,7 +8,9 @@ namespace Hotel.Data.Entidades
     public class UsuarioEntidad
     {
         [Key]
-        public string IdUsuario { get; set; } = string.Empty;
+        public int IdUsuario { get; set; }
+
+        public string? IdentityId { get; set; }
 
         public string Nombre { get; set; } = string.Empty;
 

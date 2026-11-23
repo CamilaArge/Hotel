@@ -2,8 +2,8 @@
 using Hotel.Data.Entidades;
 
 namespace Hotel.Services
+
 {
-    
     public class UsuarioHotelService
     {
         private const string MarcaIdentity = "ASPNET_IDENTITY";
@@ -11,71 +11,109 @@ namespace Hotel.Services
         private readonly HotelContext _contexto;
         private readonly FechaService _fechaService;
 
-        public UsuarioHotelService(HotelContext contexto, FechaService fechaService)
+        public UsuarioHotelService(
+            HotelContext contexto,
+            FechaService fechaService)
         {
             _contexto = contexto;
             _fechaService = fechaService;
         }
 
-       
-        public string AsegurarRegistro(string idIdentity)
+        // Sincroniza el usuario de Identity con la tabla Usuario.
+        // Retorna el IdUsuario de tipo int.
+        public int AsegurarRegistro(string idIdentity)
         {
-            if (_contexto.Usuarios.Any(u => u.IdUsuario == idIdentity))
+            // Buscar el usuario de ASP.NET Identity.
+            var usuarioIdentity = _contexto.Users
+                .FirstOrDefault(u => u.Id == idIdentity)
+                ?? throw new InvalidOperationException(
+                    "El usuario de la sesión no existe.");
+
+            string correo = usuarioIdentity.Email
+                ?? usuarioIdentity.UserName
+                ?? idIdentity;
+
+            // Buscar si ya existe un registro relacionado con Identity.
+            var usuario = _contexto.Usuarios
+                .FirstOrDefault(u => u.IdentityId == idIdentity);
+
+            if (usuario != null)
             {
-                return idIdentity;
+                return usuario.IdUsuario;
             }
 
-            var usuarioIdentity = _contexto.Users.FirstOrDefault(u => u.Id == idIdentity)
-                ?? throw new InvalidOperationException("El usuario de la sesión no existe.");
+            // Si ya existe por correo, vincularlo con Identity.
+            var porCorreo = _contexto.Usuarios
+                .FirstOrDefault(u => u.Correo == correo);
 
-            string correo = usuarioIdentity.Email ?? usuarioIdentity.UserName ?? idIdentity;
-
-            // Si el módulo de Usuarios ya lo registró con otro Id, se usa ese registro
-            UsuarioEntidad? porCorreo = _contexto.Usuarios.FirstOrDefault(u => u.Correo == correo);
             if (porCorreo != null)
             {
+                if (string.IsNullOrEmpty(porCorreo.IdentityId))
+                {
+                    porCorreo.IdentityId = idIdentity;
+                    _contexto.SaveChanges();
+                }
+                else if (porCorreo.IdentityId != idIdentity)
+                {
+                    throw new InvalidOperationException(
+                        "El correo ya está vinculado a otro usuario de Identity.");
+                }
+
                 return porCorreo.IdUsuario;
             }
 
-            string rol = (from ur in _contexto.UserRoles
-                          join r in _contexto.Roles on ur.RoleId equals r.Id
-                          where ur.UserId == idIdentity
-                          select r.Name).FirstOrDefault() ?? "Cliente";
+            // Obtener el rol del usuario.
+            string rol = (
+                from ur in _contexto.UserRoles
+                join r in _contexto.Roles
+                    on ur.RoleId equals r.Id
+                where ur.UserId == idIdentity
+                select r.Name
+            ).FirstOrDefault() ?? "Cliente";
 
             string idLimpio = idIdentity.Replace("-", "");
 
-            _contexto.Usuarios.Add(new UsuarioEntidad
+            // Crear el registro en nuestra tabla Usuario.
+            var nuevoUsuario = new UsuarioEntidad
             {
-                IdUsuario = idIdentity,
+                IdentityId = idIdentity,
                 Nombre = Recortar(correo, 150),
-             
-                Cedula = "TMP-" + idLimpio[..Math.Min(16, idLimpio.Length)],
+                Cedula = "TMP-" + idLimpio[
+                    ..Math.Min(16, idLimpio.Length)],
                 Correo = Recortar(correo, 150),
-                ContrasenaHash = MarcaIdentity, 
+                ContrasenaHash = MarcaIdentity,
                 Rol = rol,
                 Activo = true,
                 FechaRegistro = _fechaService.ObtenerFechaActual()
-            });
+            };
+
+            _contexto.Usuarios.Add(nuevoUsuario);
+
+            // IdUsuario se genera automáticamente en SQL Server.
             _contexto.SaveChanges();
 
-            return idIdentity;
+            return nuevoUsuario.IdUsuario;
         }
 
-      
-        public Dictionary<string, string> ObtenerNombres(IEnumerable<string> ids)
+        // Obtener los nombres usando los identificadores
+        // de la tabla Usuario, que son de tipo int.
+        public Dictionary<int, string> ObtenerNombres(
+            IEnumerable<int> ids)
         {
-            List<string> lista = ids.Where(i => !string.IsNullOrEmpty(i)).Distinct().ToList();
+            List<int> lista = ids
+                .Where(i => i > 0)
+                .Distinct()
+                .ToList();
 
-            Dictionary<string, string> nombres = _contexto.Users
-                .Where(u => lista.Contains(u.Id))
-                .ToDictionary(u => u.Id, u => u.Email ?? u.UserName ?? u.Id);
+            Dictionary<int, string> nombres = _contexto.Usuarios
+                .Where(u => lista.Contains(u.IdUsuario))
+                .ToDictionary(
+                    u => u.IdUsuario,
+                    u => u.Nombre
+                );
 
-            foreach (var u in _contexto.Usuarios.Where(u => lista.Contains(u.IdUsuario)).ToList())
-            {
-                nombres[u.IdUsuario] = u.Nombre;
-            }
-
-            foreach (string id in lista.Where(id => !nombres.ContainsKey(id)))
+            foreach (int id in lista.Where(
+                id => !nombres.ContainsKey(id)))
             {
                 nombres[id] = "(usuario no encontrado)";
             }
@@ -85,7 +123,9 @@ namespace Hotel.Services
 
         private static string Recortar(string texto, int maximo)
         {
-            return texto.Length <= maximo ? texto : texto[..maximo];
+            return texto.Length <= maximo
+                ? texto
+                : texto[..maximo];
         }
     }
 }
