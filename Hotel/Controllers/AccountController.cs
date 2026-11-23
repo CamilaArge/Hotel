@@ -67,7 +67,7 @@ namespace Hotel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (model.Rol != Roles.Administrador && model.Rol != Roles.Cliente)
+            if (!Roles.Todos.Contains(model.Rol))
             {
                 ModelState.AddModelError(nameof(model.Rol), "Debe seleccionar un rol válido");
             }
@@ -95,7 +95,7 @@ namespace Hotel.Controllers
             return View(model);
         }
 
-        // POST: Account/LogOff
+  
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
@@ -104,7 +104,7 @@ namespace Hotel.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: Account/AccessDenied (cuando el usuario no tiene el rol necesario)
+        // GET: Account/AccessDenied 
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {

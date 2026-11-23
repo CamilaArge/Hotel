@@ -1,0 +1,34 @@
+﻿@model Habitacion
+
+@{
+    ViewData["Title"] = "Actualizar estado";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card ht-card shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-1">Estado de la habitación</h3>
+                <p class="text-muted">@Model.Codigo - @Model.Nombre (@Model.Ubicacion)</p>
+
+                <partial name="_Mensajes" />
+
+                <p>Estado actual: <partial name="_EstadoBadge" model="Model.EstadoOperativo" /></p>
+
+                <form asp-action="ActualizarEstado" asp-route-id="@Model.IdHabitacion" method="post" class="d-flex gap-2">
+                    @if (Model.Estado)
+                    {
+                        <input type="hidden" name="activa" value="false" />
+                        <button type="submit" class="btn btn-secondary">Pasar a mantenimiento</button>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="activa" value="true" />
+                        <button type="submit" class="btn btn-success">Marcar como disponible</button>
+                    }
+                    <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,18 +1,41 @@
-@model Reserva
+﻿@model Reserva
 
 @{
     ViewData["Title"] = "Detalles de reservación";
+    bool esPersonal = User.IsInRole(Roles.Administrador) || User.IsInRole(Roles.Recepcionista);
+    bool puedeCancelar = ViewBag.PuedeCancelar == true;
 }
 
 <div class="row justify-content-center">
     <div class="col-lg-7">
+        <partial name="_Mensajes" />
+
         <div class="card ht-card shadow-sm">
             <div class="card-header">Detalles de la reservación</div>
             <div class="card-body p-4">
                 <partial name="_DetallesParcial" model="Model" />
             </div>
-            <div class="card-footer bg-white">
-                <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+            <div class="card-footer bg-white d-flex flex-wrap gap-2">
+                @if (esPersonal)
+                {
+                    @if (Model.Estado)
+                    {
+                        <a asp-action="Editar" asp-route-id="@Model.IdReserva" class="btn btn-warning">Editar</a>
+                    }
+                    <a asp-controller="Pago" asp-action="Reserva" asp-route-id="@Model.IdReserva" class="btn btn-success">Pagos de la reserva</a>
+                }
+                @if (puedeCancelar)
+                {
+                    <a asp-action="Cancelar" asp-route-id="@Model.IdReserva" class="btn btn-outline-danger">Cancelar reserva</a>
+                }
+                @if (esPersonal)
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver a reservas</a>
+                }
+                else
+                {
+                    <a asp-action="MisReservas" class="btn btn-outline-secondary">Mis reservas</a>
+                }
             </div>
         </div>
     </div>

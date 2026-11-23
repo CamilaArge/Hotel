@@ -1,5 +1,6 @@
-@{
+﻿@{
     ViewData["Title"] = "Inicio";
+    bool esPersonal = User.IsInRole(Roles.Administrador) || User.IsInRole(Roles.Recepcionista);
 }
 
 <div class="text-center mb-4">
@@ -14,14 +15,47 @@
 </div>
 
 <div class="row justify-content-center g-4">
-    @if (User.IsInRole(Roles.Administrador))
+    @if (esPersonal)
     {
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="card ht-card shadow-sm h-100">
                 <div class="card-body p-4">
                     <h4>Habitaciones</h4>
-                    <p class="text-muted">Agregar, editar y consultar las habitaciones del hotel y sus reservas.</p>
-                    <a asp-controller="Habitacion" asp-action="ObtenerHabitaciones" class="btn btn-primary">Administrar habitaciones</a>
+                    <p class="text-muted">
+                        @(User.IsInRole(Roles.Administrador)
+                            ? "Agregar, editar, eliminar y consultar habitaciones y su estado."
+                            : "Consultar habitaciones y actualizar su estado.")
+                    </p>
+                    <a asp-controller="Habitacion" asp-action="ObtenerHabitaciones" class="btn btn-primary">Ir a habitaciones</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card ht-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h4>Reservas</h4>
+                    <p class="text-muted">Registrar, buscar, modificar y cancelar reservas.</p>
+                    <a asp-controller="Reserva" asp-action="Index" class="btn btn-success">Ir a reservas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card ht-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h4>Pagos</h4>
+                    <p class="text-muted">
+                        @(User.IsInRole(Roles.Administrador)
+                            ? "Registrar pagos, consultar el historial y anular pagos."
+                            : "Registrar pagos de las reservas.")
+                    </p>
+                    @if (User.IsInRole(Roles.Administrador))
+                    {
+                        <a asp-controller="Pago" asp-action="Index" class="btn btn-dark">Ir a pagos</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Pago" asp-action="Buscar" class="btn btn-dark">Registrar pago</a>
+                    }
                 </div>
             </div>
         </div>
@@ -32,9 +66,18 @@
         <div class="col-md-5">
             <div class="card ht-card shadow-sm h-100">
                 <div class="card-body p-4">
-                    <h4>Reservas</h4>
-                    <p class="text-muted">Ver las habitaciones disponibles, reservar o buscar una reservación.</p>
-                    <a asp-controller="Reserva" asp-action="ObtenerHabitaciones" class="btn btn-success">Hacer una reserva</a>
+                    <h4>Reservar</h4>
+                    <p class="text-muted">Busque habitaciones libres por fechas y haga su reserva.</p>
+                    <a asp-controller="Reserva" asp-action="ObtenerHabitaciones" class="btn btn-success">Habitaciones disponibles</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card ht-card shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h4>Mis reservas</h4>
+                    <p class="text-muted">Consulte el detalle, el saldo o cancele sus reservas.</p>
+                    <a asp-controller="Reserva" asp-action="MisReservas" class="btn btn-primary">Ver mis reservas</a>
                 </div>
             </div>
         </div>

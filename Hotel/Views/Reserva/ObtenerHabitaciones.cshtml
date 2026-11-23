@@ -1,31 +1,80 @@
-@model List<Habitacion>
+﻿@model List<Habitacion>
 
 @{
     ViewData["Title"] = "Habitaciones disponibles";
+    DateTime? entrada = ViewBag.Entrada as DateTime?;
+    DateTime? salida = ViewBag.Salida as DateTime?;
+    int? personas = ViewBag.Personas as int?;
+    bool buscoPorFechas = entrada.HasValue && salida.HasValue;
 }
 
 <h3 class="mb-3">Habitaciones disponibles</h3>
 
 <partial name="_Mensajes" />
 
-<div class="card ht-card shadow-sm mb-4">
-    <div class="card-body">
-        <label for="idReservacion" class="form-label">¿Ya tiene una reserva? Búsquela por su número</label>
-        <div class="input-group" style="max-width: 420px;">
-            <input type="number" id="idReservacion" class="form-control" placeholder="Número de reservación" />
-            <button id="btnBuscarReserva" type="button" class="btn btn-primary">Buscar</button>
-        </div>
-        <div id="mensajeBusqueda" class="text-danger mt-2"></div>
+<div class="row g-3 mb-4">
+    <div class="col-lg-7">
+        <form asp-action="ObtenerHabitaciones" method="get" class="card ht-card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="mb-3">Buscar por fechas</h6>
+                <div class="row g-2 align-items-end">
+                    <div class="col-sm-4">
+                        <label class="form-label" for="entrada">Entrada</label>
+                        <input type="date" class="form-control" id="entrada" name="entrada" value="@entrada?.ToString("yyyy-MM-dd")" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-label" for="salida">Salida</label>
+                        <input type="date" class="form-control" id="salida" name="salida" value="@salida?.ToString("yyyy-MM-dd")" required />
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="form-label" for="personas">Personas</label>
+                        <input type="number" min="1" class="form-control" id="personas" name="personas" value="@(personas ?? 1)" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                    </div>
+                </div>
+                @if (buscoPorFechas)
+                {
+                    <a asp-action="ObtenerHabitaciones" class="small d-inline-block mt-2">Ver todas las habitaciones</a>
+                }
+            </div>
+        </form>
     </div>
+    <div class="col-lg-5">
+        <div class="card ht-card shadow-sm h-100">
+            <div class="card-body">
+                <h6 class="mb-3">¿Ya tiene una reserva? Búsquela por su número</h6>
+                <div class="input-group">
+                    <input type="number" id="idReservacion" class="form-control" placeholder="Número de reservación" />
+                    <button id="btnBuscarReserva" type="button" class="btn btn-dark"
+                            data-url="@Url.Action("DetallesParcial", "Reserva")">Buscar</button>
+                </div>
+                <div id="mensajeBusqueda" class="text-danger mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">
+        @(buscoPorFechas ? $"Libres del {entrada:dd/MM/yyyy} al {salida:dd/MM/yyyy}" : "Elija una habitación")
+        <span class="badge bg-success-subtle text-success-emphasis">@Model.Count</span>
+    </h5>
+    @if (!buscoPorFechas)
+    {
+        <small class="text-muted">La disponibilidad se confirma al indicar las fechas de la reserva.</small>
+    }
 </div>
 
 <div class="card ht-card shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover mb-0">
+            <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Habitación</th>
                         <th>Huéspedes</th>
                         <th>Camas</th>
                         <th>Baños</th>
@@ -39,22 +88,28 @@
                     @if (Model.Count == 0)
                     {
                         <tr>
-                            <td colspan="8" class="text-center text-muted py-4">No hay habitaciones disponibles.</td>
+                            <td colspan="9" class="text-center text-muted py-4">No hay habitaciones disponibles con esos criterios.</td>
                         </tr>
                     }
 
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@item.Codigo</td>
                             <td>@item.Nombre</td>
                             <td>@item.CantidadHuespedes</td>
                             <td>@item.CantidadCamas</td>
                             <td>@item.CantidadBanos</td>
                             <td>@item.Ubicacion</td>
                             <td>@item.TipoTexto</td>
-                            <td>@item.PrecioPorNoche.ToString("N2")</td>
+                            <td>@item.PrecioPorNoche.Colones()</td>
                             <td>
-                                <a asp-action="AgregarReserva" asp-route-idHabitacion="@item.IdHabitacion" class="btn btn-success btn-sm">Reservar</a>
+                                <a asp-action="AgregarReserva"
+                                   asp-route-idHabitacion="@item.IdHabitacion"
+                                   asp-route-entrada="@entrada?.ToString("yyyy-MM-dd")"
+                                   asp-route-salida="@salida?.ToString("yyyy-MM-dd")"
+                                   asp-route-personas="@personas"
+                                   class="btn btn-success btn-sm">Reservar</a>
                             </td>
                         </tr>
                     }
@@ -64,7 +119,7 @@
     </div>
 </div>
 
-<!-- Modal con el detalle de la reserva buscada -->
+
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaTitulo" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

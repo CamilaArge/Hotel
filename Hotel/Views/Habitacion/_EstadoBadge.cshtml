@@ -1,0 +1,11 @@
+﻿@model string
+
+@{
+    string clase = Model switch
+    {
+        EstadosHabitacion.Disponible => "bg-success",
+        EstadosHabitacion.Ocupada => "bg-primary",
+        _ => "bg-secondary"
+    };
+}
+<span class="badge @clase">@Model</span>

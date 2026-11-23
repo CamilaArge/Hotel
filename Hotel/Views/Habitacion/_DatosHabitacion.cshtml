@@ -1,4 +1,4 @@
-@model Habitacion
+﻿@model Habitacion
 
 <dl class="row mb-0">
     <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Codigo)</dt>
@@ -26,14 +26,14 @@
     <dd class="col-sm-8">@Model.Ubicacion</dd>
 
     <dt class="col-sm-4">@Html.DisplayNameFor(m => m.PrecioPorNoche)</dt>
-    <dd class="col-sm-8">@Model.PrecioPorNoche.ToString("N2")</dd>
+    <dd class="col-sm-8">@Model.PrecioPorNoche.Colones()</dd>
+
+    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.EstadoOperativo)</dt>
+    <dd class="col-sm-8"><partial name="_EstadoBadge" model="Model.EstadoOperativo" /></dd>
 
     <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaRegistro)</dt>
     <dd class="col-sm-8">@Model.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</dd>
 
     <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FechaModificacion)</dt>
     <dd class="col-sm-8">@(Model.FechaModificacion?.ToString("dd/MM/yyyy HH:mm") ?? "-")</dd>
-
-    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Estado)</dt>
-    <dd class="col-sm-8">@(Model.Estado ? "Sí" : "No")</dd>
 </dl>

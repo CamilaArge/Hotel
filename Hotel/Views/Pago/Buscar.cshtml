@@ -1,0 +1,22 @@
+﻿@model List<Reserva>
+
+@{
+    ViewData["Title"] = "Registrar pago";
+}
+
+<h3 class="mb-3">Registrar pago</h3>
+
+<partial name="_Mensajes" />
+
+<form asp-action="Buscar" method="get" class="card ht-card shadow-sm mb-4">
+    <div class="card-body">
+        <label for="idReserva" class="form-label">Número de reserva</label>
+        <div class="input-group" style="max-width: 420px;">
+            <input type="number" min="1" id="idReserva" name="idReserva" class="form-control" required />
+            <button type="submit" class="btn btn-primary">Ir a pagos</button>
+        </div>
+    </div>
+</form>
+
+<h5>Reservas con saldo pendiente</h5>
+<partial name="_TablaReservas" model="Model" />

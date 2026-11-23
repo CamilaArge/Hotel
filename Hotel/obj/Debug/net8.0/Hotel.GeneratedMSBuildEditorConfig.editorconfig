@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Habitacion/ActualizarEstado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvblxBY3R1YWxpemFyRXN0YWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Habitacion/AgregarHabitacion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvblxBZ3JlZ2FySGFiaXRhY2lvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -80,12 +84,44 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvblxfRGF0b3NIYWJpdGFjaW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Habitacion/_EstadoBadge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvblxfRXN0YWRvQmFkZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Habitacion/_SelectTipo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGFiaXRhY2lvblxfU2VsZWN0VGlwby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Pago/Anular.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xBbnVsYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Pago/Buscar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xCdXNjYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Pago/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Pago/Reserva.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xSZXNlcnZhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Pago/_EstadoPago.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnb1xfRXN0YWRvUGFnby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/AgregarReserva.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxBZ3JlZ2FyUmVzZXJ2YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/Cancelar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxDYW5jZWxhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/Detalles.cshtml]
@@ -100,6 +136,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxFbGltaW5hci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/MisReservas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxNaXNSZXNlcnZhcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/ObtenerHabitaciones.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxPYnRlbmVySGFiaXRhY2lvbmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -112,8 +156,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxfRGV0YWxsZXNQYXJjaWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Reserva/_FormularioReserva.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YVxfRm9ybXVsYXJpb1Jlc2VydmEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Shared/_EstadoReserva.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Fc3RhZG9SZXNlcnZhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Shared/_Layout.cshtml]
@@ -126,6 +178,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Shared/_Mensajes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NZW5zYWplcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Shared/_TablaReservas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UYWJsYVJlc2VydmFzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Camila/Source/Repos/Hotel/Hotel/Views/Shared/_ValidationScriptsPartial.cshtml]

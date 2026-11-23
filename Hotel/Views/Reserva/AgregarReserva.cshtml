@@ -1,52 +1,58 @@
-@model Reserva
+﻿@model Reserva
 
 @{
     ViewData["Title"] = "Nueva reserva";
     var habitacion = ViewBag.Habitacion as Habitacion;
+    var huespedes = ViewBag.Huespedes as List<HuespedOpcion>;
+    bool esPersonal = ViewBag.EsPersonal == true;
 }
 
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="card ht-card shadow-sm">
             <div class="card-body p-4">
-                <h3 class="mb-1">Nueva reserva</h3>
-                @if (habitacion != null)
+                <h3 class="mb-1">@(esPersonal ? "Registrar reserva" : "Nueva reserva")</h3>
+                @if (!esPersonal && habitacion != null)
                 {
                     <p class="text-muted">
-                        Habitación: <strong>@habitacion.Nombre</strong> (@habitacion.TipoTexto) ·
+                        Habitación: <strong>@habitacion.Codigo - @habitacion.Nombre</strong> (@habitacion.TipoTexto) ·
                         Máximo @habitacion.CantidadHuespedes huéspedes ·
-                        Precio por noche: @habitacion.PrecioPorNoche.ToString("N2")
+                        @habitacion.PrecioPorNoche.Colones() por noche
                     </p>
                 }
 
                 <partial name="_Mensajes" />
 
-                <form asp-action="AgregarReserva" method="post">
+                <form asp-action="AgregarReserva" method="post" id="formReserva">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="IdHabitacion" />
 
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="FechaEntrada" class="form-label"></label>
-                            <input asp-for="FechaEntrada" class="form-control" />
-                            <span asp-validation-for="FechaEntrada" class="text-danger"></span>
+                    @if (esPersonal)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="IdUsuario" class="form-label"></label>
+                            <select asp-for="IdUsuario" class="form-select">
+                                <option value="">Seleccione el huésped</option>
+                                @foreach (var h in huespedes ?? new List<HuespedOpcion>())
+                                {
+                                    <option value="@h.Id" selected="@(h.Id == Model.IdUsuario)">@h.Texto</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                            <div class="form-text">Solo aparecen cuentas con rol Cliente. Si el huésped no tiene cuenta, debe registrarse primero.</div>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="FechaSalida" class="form-label"></label>
-                            <input asp-for="FechaSalida" class="form-control" />
-                            <span asp-validation-for="FechaSalida" class="text-danger"></span>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label asp-for="CantidadPersonas" class="form-label"></label>
-                            <input asp-for="CantidadPersonas" class="form-control" min="1" max="@habitacion?.CantidadHuespedes" />
-                            <span asp-validation-for="CantidadPersonas" class="text-danger"></span>
-                        </div>
-                    </div>
+                    }
 
-                    <p class="text-muted small">El monto total se calcula automáticamente: noches × precio por noche.</p>
+                    <partial name="_FormularioReserva" model="Model" />
 
                     <button type="submit" class="btn btn-success">Reservar</button>
-                    <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+                    @if (esPersonal)
+                    {
+                        <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+                    }
+                    else
+                    {
+                        <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+                    }
                 </form>
             </div>
         </div>
@@ -55,4 +61,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/reserva.js" asp-append-version="true"></script>
 }

@@ -1,35 +1,43 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Hotel.Models;
 using Hotel.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hotel.Controllers
 {
-   
     [Authorize]
     public class ReservaController : Controller
     {
         private readonly ReservaService _reservaService;
         private readonly HabitacionService _habitacionService;
+        private readonly FechaService _fechaService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ReservaController(ReservaService reservaService, HabitacionService habitacionService)
+        public ReservaController(ReservaService reservaService, HabitacionService habitacionService,
+            FechaService fechaService, UserManager<IdentityUser> userManager)
         {
             _reservaService = reservaService;
             _habitacionService = habitacionService;
+            _fechaService = fechaService;
+            _userManager = userManager;
         }
 
-        // GET: Reserva/ObtenerHabitaciones  
-        [Authorize(Roles = Roles.Cliente)]
-        public IActionResult ObtenerHabitaciones()
+        private string IdUsuarioActual => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+
+        private bool EsPersonal => User.IsInRole(Roles.Administrador) || User.IsInRole(Roles.Recepcionista);
+
+  
+        [Authorize(Roles = Roles.Personal)]
+        public IActionResult Index(FiltroReservas filtro)
         {
-            List<Habitacion> habitaciones = _habitacionService.ObtenerActivas();
-            return View(habitaciones);
+            ViewBag.Filtro = filtro;
+            return View(_reservaService.Buscar(filtro));
         }
 
-        // GET: Reserva/ObtenerReservas?idHabitacion=5
-        [Authorize(Roles = Roles.Administrador)]
+    
+        [Authorize(Roles = Roles.Personal)]
         public IActionResult ObtenerReservas(int idHabitacion)
         {
             Habitacion? habitacion = _habitacionService.ObtenerPorId(idHabitacion);
@@ -40,75 +48,128 @@ namespace Hotel.Controllers
             }
 
             ViewBag.Habitacion = habitacion;
-            List<Reserva> reservas = _reservaService.ObtenerPorHabitacion(idHabitacion);
-            return View(reservas);
+            return View(_reservaService.ObtenerPorHabitacion(idHabitacion));
         }
 
-        // GET: Reserva/Detalles?idReservacion=5
+      
         [Authorize(Roles = Roles.Cliente)]
-        public IActionResult Detalles(int idReservacion)
+        public IActionResult MisReservas()
         {
-            Reserva? reserva = ObtenerReservaVisible(idReservacion);
+            return View(_reservaService.ObtenerPorUsuario(IdUsuarioActual));
+        }
+
+      
+        [Authorize(Roles = Roles.Cliente)]
+        public IActionResult ObtenerHabitaciones(DateTime? entrada, DateTime? salida, int? personas)
+        {
+            ViewBag.Entrada = entrada;
+            ViewBag.Salida = salida;
+            ViewBag.Personas = personas;
+
+            if (entrada.HasValue && salida.HasValue)
+            {
+                if (salida.Value.Date <= entrada.Value.Date)
+                {
+                    ViewBag.Error = "La fecha de salida debe ser posterior a la fecha de entrada.";
+                    return View(new List<Habitacion>());
+                }
+
+                if (entrada.Value.Date < _fechaService.ObtenerFechaActual().Date)
+                {
+                    ViewBag.Error = "La fecha de entrada no puede ser anterior a hoy.";
+                    return View(new List<Habitacion>());
+                }
+
+                return View(_habitacionService.ObtenerDisponibles(entrada.Value, salida.Value, Math.Max(1, personas ?? 1)));
+            }
+
+            return View(_habitacionService.ObtenerActivas());
+        }
+
+
+
+        // GET: Reserva/Detalles/5
+        public IActionResult Detalles(int id)
+        {
+            Reserva? reserva = ObtenerReservaVisible(id);
 
             if (reserva == null)
             {
-                TempData["Mensaje"] = "Estimado usuario, no se ha encontrado la reservación, favor realice una.";
-                return RedirectToAction(nameof(ObtenerHabitaciones));
+                TempData["Mensaje"] = "No se encontró la reservación indicada.";
+                return EsPersonal ? RedirectToAction(nameof(Index)) : RedirectToAction(nameof(ObtenerHabitaciones));
             }
 
+            ViewBag.PuedeCancelar = PuedeCancelar(reserva, out _);
             return View(reserva);
         }
 
-        // GET
-        [Authorize(Roles = Roles.Cliente)]
+    
         public IActionResult DetallesParcial(int idReservacion)
         {
             Reserva? reserva = ObtenerReservaVisible(idReservacion);
-
-            if (reserva == null)
-            {
-                return Content("");
-            }
-
-            return PartialView("_DetallesParcial", reserva);
+            return reserva == null ? Content(string.Empty) : PartialView("_DetallesParcial", reserva);
         }
 
-        // GET: Reserva/AgregarReserva?idHabitacion=5
-        [Authorize(Roles = Roles.Cliente)]
-        public IActionResult AgregarReserva(int idHabitacion)
+
+        public async Task<IActionResult> AgregarReserva(int? idHabitacion, DateTime? entrada, DateTime? salida, int? personas)
         {
-            Habitacion? habitacion = _habitacionService.ObtenerPorId(idHabitacion);
+            DateTime hoy = _fechaService.ObtenerFechaActual().Date;
 
-            if (habitacion == null)
+            Reserva reserva = new()
             {
-                return NotFound();
+                IdHabitacion = idHabitacion ?? 0,
+                FechaEntrada = entrada?.Date ?? hoy,
+                FechaSalida = salida?.Date ?? hoy.AddDays(1),
+                CantidadPersonas = Math.Max(1, personas ?? 1)
+            };
+
+          
+            if (!EsPersonal && (idHabitacion == null || _habitacionService.ObtenerPorId(idHabitacion.Value) == null))
+            {
+                return RedirectToAction(nameof(ObtenerHabitaciones));
             }
 
-            ViewBag.Habitacion = habitacion;
-            return View(new Reserva { IdHabitacion = idHabitacion });
+            await CargarDatosFormulario(reserva);
+            return View(reserva);
         }
 
-        // POST: Reserva/AgregarReserva
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Roles.Cliente)]
-        public IActionResult AgregarReserva(Reserva reserva)
+        public async Task<IActionResult> AgregarReserva(Reserva reserva)
         {
-            AgregarErroresDeNegocio(reserva, esNueva: true);
+       
+            string idUsuario;
+            if (EsPersonal)
+            {
+                idUsuario = reserva.IdUsuario ?? string.Empty;
+                if (string.IsNullOrEmpty(idUsuario) || await _userManager.FindByIdAsync(idUsuario) == null)
+                {
+                    ModelState.AddModelError(nameof(Reserva.IdUsuario), "Debe seleccionar el huésped.");
+                }
+            }
+            else
+            {
+                idUsuario = IdUsuarioActual;
+            }
+
+            if (ModelState.IsValid)
+            {
+                AgregarErrores(reserva, esNueva: true);
+            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    string? idUsuario = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     int idReserva = _reservaService.Agregar(reserva, idUsuario);
 
                     if (idReserva > 0)
                     {
-                        return RedirectToAction(nameof(Detalles), new { idReservacion = idReserva });
+                        TempData["Mensaje"] = $"Reserva #{idReserva} registrada correctamente.";
+                        return RedirectToAction(nameof(Detalles), new { id = idReserva });
                     }
 
-                    ViewBag.Error = "No se pudo guardar la reserva.";
+                    ViewBag.Error = "La habitación acaba de ser reservada por otra persona en esas fechas. Elija otras fechas u otra habitación.";
                 }
                 catch (Exception ex)
                 {
@@ -116,13 +177,14 @@ namespace Hotel.Controllers
                 }
             }
 
-            ViewBag.Habitacion = _habitacionService.ObtenerPorId(reserva.IdHabitacion);
+            await CargarDatosFormulario(reserva);
             return View(reserva);
         }
 
-        // GET: Reserva/Editar/5
-        [Authorize(Roles = Roles.Administrador)]
-        public IActionResult Editar(int id)
+  
+
+        [Authorize(Roles = Roles.Personal)]
+        public async Task<IActionResult> Editar(int id)
         {
             Reserva? reserva = _reservaService.ObtenerPorId(id);
 
@@ -134,20 +196,32 @@ namespace Hotel.Controllers
             if (!reserva.Estado)
             {
                 TempData["Mensaje"] = "Una reserva cancelada no se puede modificar.";
-                return RedirectToAction(nameof(ObtenerReservas), new { idHabitacion = reserva.IdHabitacion });
+                return RedirectToAction(nameof(Detalles), new { id });
             }
 
-            CargarHabitaciones(reserva.IdHabitacion);
+            await CargarDatosFormulario(reserva);
             return View(reserva);
         }
 
-        // POST: Reserva/Editar
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Roles.Administrador)]
-        public IActionResult Editar(Reserva reserva)
+        [Authorize(Roles = Roles.Personal)]
+        public async Task<IActionResult> Editar(Reserva reserva)
         {
-            AgregarErroresDeNegocio(reserva, esNueva: false);
+            Reserva? actual = _reservaService.ObtenerPorId(reserva.IdReserva);
+
+            if (actual == null)
+            {
+                return NotFound();
+            }
+
+        
+            reserva.IdUsuario = actual.IdUsuario;
+
+            if (ModelState.IsValid)
+            {
+                AgregarErrores(reserva, esNueva: false);
+            }
 
             if (ModelState.IsValid)
             {
@@ -156,10 +230,10 @@ namespace Hotel.Controllers
                     if (_reservaService.Editar(reserva))
                     {
                         TempData["Mensaje"] = "La reserva se actualizó correctamente.";
-                        return RedirectToAction(nameof(ObtenerReservas), new { idHabitacion = reserva.IdHabitacion });
+                        return RedirectToAction(nameof(Detalles), new { id = reserva.IdReserva });
                     }
 
-                    ViewBag.Error = "No se pudo actualizar la reserva.";
+                    ViewBag.Error = "No se pudo actualizar la reserva: la habitación ya no está disponible en esas fechas.";
                 }
                 catch (Exception ex)
                 {
@@ -167,63 +241,102 @@ namespace Hotel.Controllers
                 }
             }
 
-            CargarHabitaciones(reserva.IdHabitacion);
+            reserva.MontoTotal = actual.MontoTotal;
+            reserva.TotalPagado = actual.TotalPagado;
+            reserva.HuespedTexto = actual.HuespedTexto;
+            await CargarDatosFormulario(reserva);
             return View(reserva);
         }
 
+  
+
         // GET: Reserva/Cancelar/5
-        [Authorize(Roles = Roles.Administrador)]
         public IActionResult Cancelar(int id)
         {
-            Reserva? reserva = _reservaService.ObtenerPorId(id);
+            Reserva? reserva = ObtenerReservaVisible(id);
 
             if (reserva == null)
             {
                 return NotFound();
             }
 
+            if (!PuedeCancelar(reserva, out string? motivo))
+            {
+                TempData["Mensaje"] = motivo;
+                return RedirectToAction(nameof(Detalles), new { id });
+            }
+
             return View(reserva);
         }
 
-        // POST: Reserva/Cancelar/5
         [HttpPost, ActionName("Cancelar")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Roles.Administrador)]
         public IActionResult ConfirmarCancelar(int id)
         {
-            Reserva? reserva = _reservaService.ObtenerPorId(id);
+            Reserva? reserva = ObtenerReservaVisible(id);
 
             if (reserva == null)
             {
                 return NotFound();
+            }
+
+            if (!PuedeCancelar(reserva, out string? motivo))
+            {
+                TempData["Mensaje"] = motivo;
+                return RedirectToAction(nameof(Detalles), new { id });
             }
 
             if (_reservaService.Cancelar(id))
             {
-                TempData["Mensaje"] = "La reserva se canceló correctamente.";
-                return RedirectToAction(nameof(ObtenerReservas), new { idHabitacion = reserva.IdHabitacion });
+                TempData["Mensaje"] = reserva.TotalPagado > 0
+                    ? $"La reserva #{id} se canceló. Tiene {reserva.TotalPagado.Colones()} en pagos aplicados: un administrador debe anularlos o gestionar el reembolso."
+                    : $"La reserva #{id} se canceló correctamente.";
+
+                return EsPersonal
+                    ? RedirectToAction(nameof(Detalles), new { id })
+                    : RedirectToAction(nameof(MisReservas));
             }
 
             ViewBag.Error = "No se pudo cancelar la reserva (puede que ya esté cancelada).";
             return View(reserva);
         }
 
-     
-        private Reserva? ObtenerReservaVisible(int idReservacion)
+    
+        private Reserva? ObtenerReservaVisible(int idReserva)
         {
-            Reserva? reserva = _reservaService.ObtenerPorId(idReservacion);
+            Reserva? reserva = _reservaService.ObtenerPorId(idReserva);
 
             if (reserva == null)
             {
                 return null;
             }
 
-            string? idUsuario = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return reserva.IdUsuario == idUsuario ? reserva : null;
+            return EsPersonal || reserva.IdUsuario == IdUsuarioActual ? reserva : null;
         }
 
-      
-        private void AgregarErroresDeNegocio(Reserva reserva, bool esNueva)
+  
+        private bool PuedeCancelar(Reserva reserva, out string? motivo)
+        {
+            motivo = null;
+            DateTime hoy = _fechaService.ObtenerFechaActual().Date;
+
+            if (!reserva.Estado)
+            {
+                motivo = "La reserva ya está cancelada.";
+            }
+            else if (reserva.FechaSalida.Date <= hoy)
+            {
+                motivo = "La estadía ya finalizó; no se puede cancelar.";
+            }
+            else if (!EsPersonal && reserva.FechaEntrada.Date <= hoy)
+            {
+                motivo = "Solo puede cancelar su reserva antes de la fecha de entrada. Comuníquese con recepción.";
+            }
+
+            return motivo == null;
+        }
+
+        private void AgregarErrores(Reserva reserva, bool esNueva)
         {
             foreach (var (campo, mensaje) in _reservaService.Validar(reserva, esNueva))
             {
@@ -231,10 +344,29 @@ namespace Hotel.Controllers
             }
         }
 
-        private void CargarHabitaciones(int idSeleccionada)
+        private async Task CargarDatosFormulario(Reserva reserva)
         {
-            ViewBag.Habitaciones = new SelectList(
-                _habitacionService.ObtenerActivas(), "IdHabitacion", "Nombre", idSeleccionada);
+            Habitacion? habitacionActual = _habitacionService.ObtenerPorId(reserva.IdHabitacion);
+            ViewBag.Habitacion = habitacionActual;
+            ViewBag.Paquetes = _reservaService.ObtenerPaquetesVigentes(reserva.IdPaquete);
+            ViewBag.EsPersonal = EsPersonal;
+
+            if (EsPersonal)
+            {
+              
+                List<Habitacion> habitaciones = _habitacionService.ObtenerActivas();
+                if (habitacionActual != null && habitaciones.All(h => h.IdHabitacion != habitacionActual.IdHabitacion))
+                {
+                    habitaciones.Add(habitacionActual);
+                }
+                ViewBag.Habitaciones = habitaciones;
+
+                IList<IdentityUser> clientes = await _userManager.GetUsersInRoleAsync(Roles.Cliente);
+                ViewBag.Huespedes = clientes
+                    .OrderBy(u => u.Email)
+                    .Select(u => new HuespedOpcion { Id = u.Id, Texto = u.Email ?? u.UserName ?? u.Id })
+                    .ToList();
+            }
         }
     }
 }

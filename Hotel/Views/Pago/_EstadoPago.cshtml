@@ -1,0 +1,17 @@
+﻿@model Pago
+
+@if (Model.EstaAnulado)
+{
+    <span class="badge bg-danger-subtle text-danger-emphasis">Anulado</span>
+    @if (Model.AnuladoPor != null)
+    {
+        <div class="small text-muted">
+            Anulado por @Model.AnuladoPor · @Model.FechaAnulacion?.ToString("dd/MM/yyyy HH:mm")<br />
+            Motivo: @Model.MotivoAnulacion
+        </div>
+    }
+}
+else
+{
+    <span class="badge bg-success-subtle text-success-emphasis">Aplicado</span>
+}

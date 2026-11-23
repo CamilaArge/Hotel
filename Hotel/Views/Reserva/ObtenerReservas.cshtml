@@ -1,70 +1,19 @@
-@model List<Reserva>
+﻿@model List<Reserva>
 
 @{
-    ViewData["Title"] = "Reservas";
+    ViewData["Title"] = "Reservas de la habitación";
     var habitacion = ViewBag.Habitacion as Habitacion;
+    ViewData["MostrarHabitacion"] = false;
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Reservas de @habitacion?.Nombre</h3>
-    <a asp-controller="Habitacion" asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver a habitaciones</a>
+    <h3 class="mb-0">Reservas de @habitacion?.Codigo - @habitacion?.Nombre</h3>
+    <div class="d-flex gap-2">
+        <a asp-action="AgregarReserva" asp-route-idHabitacion="@habitacion?.IdHabitacion" class="btn btn-success">+ Reservar esta habitación</a>
+        <a asp-controller="Habitacion" asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver a habitaciones</a>
+    </div>
 </div>
 
 <partial name="_Mensajes" />
 
-<div class="card ht-card shadow-sm">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Usuario</th>
-                        <th>Entrada</th>
-                        <th>Salida</th>
-                        <th>Personas</th>
-                        <th>Monto total</th>
-                        <th>Estado</th>
-                        <th>Registro</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Count == 0)
-                    {
-                        <tr>
-                            <td colspan="9" class="text-center text-muted py-4">Esta habitación no tiene reservas.</td>
-                        </tr>
-                    }
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.IdReserva</td>
-                            <td>@item.IdUsuario</td>
-                            <td>@item.FechaEntrada.ToString("dd/MM/yyyy")</td>
-                            <td>@item.FechaSalida.ToString("dd/MM/yyyy")</td>
-                            <td>@item.CantidadPersonas</td>
-                            <td>@item.MontoTotal.ToString("N2")</td>
-                            <td>
-                                @if (item.Estado)
-                                {
-                                    <span class="badge bg-success">Activa</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-secondary">Inactiva</span>
-                                }
-                            </td>
-                            <td>@item.FechaRegistro.ToString("dd/MM/yyyy")</td>
-                            <td class="text-nowrap">
-                                <a asp-action="Editar" asp-route-id="@item.IdReserva" class="btn btn-warning btn-sm">Editar</a>
-                                <a asp-action="Eliminar" asp-route-id="@item.IdReserva" class="btn btn-danger btn-sm">Eliminar</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+<partial name="_TablaReservas" model="Model" view-data="ViewData" />

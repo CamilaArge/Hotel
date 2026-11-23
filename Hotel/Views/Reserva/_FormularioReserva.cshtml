@@ -1,0 +1,71 @@
+﻿@model Reserva
+
+
+@{
+    var habitacion = ViewBag.Habitacion as Habitacion;
+    var paquetes = ViewBag.Paquetes as List<PaqueteOpcion> ?? new List<PaqueteOpcion>();
+    var habitaciones = ViewBag.Habitaciones as List<Habitacion>;
+    bool esPersonal = ViewBag.EsPersonal == true;
+}
+
+@if (esPersonal && habitaciones != null)
+{
+    <div class="mb-3">
+        <label asp-for="IdHabitacion" class="form-label"></label>
+        <select asp-for="IdHabitacion" class="form-select" id="selHabitacion">
+            <option value="0" data-precio="0" data-capacidad="0">Seleccione una habitación</option>
+            @foreach (var h in habitaciones)
+            {
+                <option value="@h.IdHabitacion" data-precio="@h.PrecioPorNoche.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                        data-capacidad="@h.CantidadHuespedes" selected="@(h.IdHabitacion == Model.IdHabitacion)">
+                    @h.Codigo - @h.Nombre (@h.TipoTexto, máx. @h.CantidadHuespedes) · @h.PrecioPorNoche.Colones()/noche
+                </option>
+            }
+        </select>
+        <span asp-validation-for="IdHabitacion" class="text-danger"></span>
+    </div>
+}
+else
+{
+    <input type="hidden" asp-for="IdHabitacion" id="selHabitacion"
+           data-precio="@(habitacion?.PrecioPorNoche.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "0")" />
+}
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <label asp-for="FechaEntrada" class="form-label"></label>
+        <input asp-for="FechaEntrada" class="form-control" id="fechaEntrada" />
+        <span asp-validation-for="FechaEntrada" class="text-danger"></span>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label asp-for="FechaSalida" class="form-label"></label>
+        <input asp-for="FechaSalida" class="form-control" id="fechaSalida" />
+        <span asp-validation-for="FechaSalida" class="text-danger"></span>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label asp-for="CantidadPersonas" class="form-label"></label>
+        <input asp-for="CantidadPersonas" class="form-control" min="1" max="@habitacion?.CantidadHuespedes" />
+        <span asp-validation-for="CantidadPersonas" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="mb-3">
+    <label asp-for="IdPaquete" class="form-label">Paquete (opcional)</label>
+    <select asp-for="IdPaquete" class="form-select" id="selPaquete">
+        <option value="" data-precio="0">Sin paquete</option>
+        @foreach (var p in paquetes)
+        {
+            <option value="@p.IdPaquete" data-precio="@p.Precio.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                    selected="@(p.IdPaquete == Model.IdPaquete)">
+                @p.Nombre · @p.Precio.Colones() (vigente @p.FechaInicio.ToString("dd/MM") - @p.FechaFin.ToString("dd/MM/yyyy"))
+            </option>
+        }
+    </select>
+    <span asp-validation-for="IdPaquete" class="text-danger"></span>
+    <div class="form-text">El precio del paquete se suma una sola vez por reservación.</div>
+</div>
+
+<div class="alert alert-light border d-flex justify-content-between align-items-center" id="resumenMonto">
+    <span id="detalleMonto" class="text-muted">Indique las fechas para calcular el monto.</span>
+    <strong id="totalMonto" class="fs-5">₡0.00</strong>
+</div>

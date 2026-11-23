@@ -1,0 +1,66 @@
+﻿@model List<Reserva>
+
+@{
+    bool mostrarHuesped = ViewData["MostrarHuesped"] as bool? ?? true;
+    bool mostrarHabitacion = ViewData["MostrarHabitacion"] as bool? ?? true;
+    bool esPersonal = User.IsInRole(Roles.Administrador) || User.IsInRole(Roles.Recepcionista);
+}
+
+<div class="card ht-card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Reserva</th>
+                        @if (mostrarHuesped) { <th>Huésped</th> }
+                        @if (mostrarHabitacion) { <th>Habitación</th> }
+                        <th>Paquete</th>
+                        <th>Entrada</th>
+                        <th>Salida</th>
+                        <th>Personas</th>
+                        <th>Monto total</th>
+                        <th>Saldo</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="11" class="text-center text-muted py-4">No hay reservas para mostrar.</td>
+                        </tr>
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">#@item.IdReserva</td>
+                            @if (mostrarHuesped) { <td>@item.HuespedTexto</td> }
+                            @if (mostrarHabitacion) { <td>@item.HabitacionTexto</td> }
+                            <td>@item.PaqueteTexto</td>
+                            <td>@item.FechaEntrada.ToString("dd/MM/yyyy")</td>
+                            <td>@item.FechaSalida.ToString("dd/MM/yyyy")</td>
+                            <td>@item.CantidadPersonas</td>
+                            <td>@item.MontoTotal.Colones()<br /><small class="text-muted">@item.Noches noche(s)</small></td>
+                            <td>@item.Saldo.Colones()</td>
+                            <td><partial name="_EstadoReserva" model="item.EstadoTexto" /></td>
+                            <td class="text-nowrap text-end">
+                                <a asp-controller="Reserva" asp-action="Detalles" asp-route-id="@item.IdReserva" class="btn btn-info btn-sm">Detalles</a>
+                                @if (esPersonal && item.Estado)
+                                {
+                                    <a asp-controller="Reserva" asp-action="Editar" asp-route-id="@item.IdReserva" class="btn btn-warning btn-sm">Editar</a>
+                                }
+                                @if (esPersonal)
+                                {
+                                    <a asp-controller="Pago" asp-action="Reserva" asp-route-id="@item.IdReserva" class="btn btn-outline-success btn-sm">Pagos</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

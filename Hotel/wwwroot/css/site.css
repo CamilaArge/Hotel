@@ -20,3 +20,36 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.ht-navbar {
+    background-color: #212529; 
+}
+
+    .ht-navbar .navbar-brand {
+        font-weight: 600;
+    }
+
+    .ht-navbar .nav-link {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+        .ht-navbar .nav-link:hover,
+        .ht-navbar .nav-link:focus {
+            color: #fff;
+        }
+
+   
+    .ht-navbar .btn-link.nav-link {
+        text-decoration: none;
+        border: 0;
+    }
+
+.ht-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+    .ht-card .card-header {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }

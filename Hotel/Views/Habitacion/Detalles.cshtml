@@ -1,4 +1,4 @@
-@model Habitacion
+﻿@model Habitacion
 
 @{
     ViewData["Title"] = "Detalles de habitación";
@@ -12,7 +12,12 @@
                 <partial name="_DatosHabitacion" model="Model" />
             </div>
             <div class="card-footer bg-white">
-                <a asp-action="Editar" asp-route-id="@Model.IdHabitacion" class="btn btn-warning">Editar</a>
+                @if (User.IsInRole(Roles.Administrador))
+                {
+                    <a asp-action="Editar" asp-route-id="@Model.IdHabitacion" class="btn btn-warning">Editar</a>
+                }
+                <a asp-action="ActualizarEstado" asp-route-id="@Model.IdHabitacion" class="btn btn-outline-dark">Actualizar estado</a>
+                <a asp-controller="Reserva" asp-action="ObtenerReservas" asp-route-idHabitacion="@Model.IdHabitacion" class="btn btn-outline-success">Ver reservas</a>
                 <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
             </div>
         </div>

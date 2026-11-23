@@ -1,0 +1,162 @@
+﻿@model PagosReservaViewModel
+
+@{
+    ViewData["Title"] = "Pagos de la reserva";
+    var r = Model.Reserva;
+    bool esAdmin = User.IsInRole(Roles.Administrador);
+    bool puedeRegistrar = r.Estado && r.Saldo > 0;
+}
+
+<nav class="small mb-2">
+    <a asp-controller="Reserva" asp-action="Index">Reservas</a> /
+    <a asp-controller="Reserva" asp-action="Detalles" asp-route-id="@r.IdReserva">Reserva #@r.IdReserva</a> /
+    Pagos
+</nav>
+
+<h3 class="mb-1">Pagos de la reserva</h3>
+<p class="text-muted">Registre los abonos y consulte el saldo y el historial de pagos de esta reserva.</p>
+
+<partial name="_Mensajes" />
+
+<div class="card ht-card shadow-sm mb-3">
+    <div class="card-body row g-3 small">
+        <div class="col-md-2"><div class="text-muted">Reserva</div><strong>#@r.IdReserva</strong></div>
+        <div class="col-md-3"><div class="text-muted">Huésped</div><strong>@r.HuespedTexto</strong></div>
+        <div class="col-md-3"><div class="text-muted">Habitación</div><strong>@r.HabitacionTexto</strong></div>
+        <div class="col-md-2"><div class="text-muted">Entrada</div><strong>@r.FechaEntrada.ToString("dd/MM/yyyy")</strong></div>
+        <div class="col-md-2"><div class="text-muted">Salida</div><strong>@r.FechaSalida.ToString("dd/MM/yyyy")</strong></div>
+    </div>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-md-4">
+        <div class="card ht-card shadow-sm"><div class="card-body">
+            <div class="text-muted small">Total de la reserva</div>
+            <div class="fs-4 fw-bold">@r.MontoTotal.Colones()</div>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card ht-card shadow-sm"><div class="card-body">
+            <div class="text-muted small">Total pagado</div>
+            <div class="fs-4 fw-bold">@r.TotalPagado.Colones()</div>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card ht-card shadow-sm"><div class="card-body">
+            <div class="text-muted small">Saldo pendiente <partial name="_EstadoReserva" model="r.EstadoPagoTexto" /></div>
+            <div class="fs-4 fw-bold">@r.Saldo.Colones()</div>
+        </div></div>
+    </div>
+</div>
+
+<div class="card ht-card shadow-sm mb-4">
+    <div class="card-header">Registrar pago</div>
+    <div class="card-body">
+        @if (!r.Estado)
+        {
+            <p class="text-muted mb-0">La reserva está cancelada: no se pueden registrar pagos.</p>
+        }
+        else if (!puedeRegistrar)
+        {
+            <p class="text-success mb-0">La reserva está pagada por completo.</p>
+        }
+        else
+        {
+            <form asp-action="Registrar" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="NuevoPago.IdReserva" />
+
+                <div class="row g-2 align-items-start">
+                    <div class="col-md-3">
+                        <label asp-for="NuevoPago.Monto" class="form-label"></label>
+                        <input asp-for="NuevoPago.Monto" type="number" step="0.01" min="0.01"
+                               max="@r.Saldo.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control" />
+                        <span asp-validation-for="NuevoPago.Monto" class="text-danger"></span>
+                        <div class="form-text">No puede superar el saldo pendiente.</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="NuevoPago.FechaPago" class="form-label"></label>
+                        <input asp-for="NuevoPago.FechaPago" class="form-control" />
+                        <span asp-validation-for="NuevoPago.FechaPago" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="NuevoPago.MetodoPago" class="form-label"></label>
+                        <select asp-for="NuevoPago.MetodoPago" class="form-select">
+                            <option value="">Seleccione</option>
+                            @foreach (string metodo in MetodosPago.Todos)
+                            {
+                                <option value="@metodo">@metodo</option>
+                            }
+                        </select>
+                        <span asp-validation-for="NuevoPago.MetodoPago" class="text-danger"></span>
+                        <div class="form-text">Efectivo, Tarjeta o Transferencia.</div>
+                    </div>
+                    <div class="col-md-3 pt-md-4 mt-md-2">
+                        <button type="submit" class="btn btn-success w-100">Registrar pago</button>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">Historial de pagos <span class="badge bg-light text-dark border">@Model.Pagos.Count</span></h5>
+
+</div>
+
+<div class="card ht-card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id de pago</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Método</th>
+                        <th>Registrado por</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Pagos.Count == 0)
+                    {
+                        <tr><td colspan="7" class="text-center text-muted py-4">Todavía no hay pagos registrados.</td></tr>
+                    }
+                    @foreach (var p in Model.Pagos)
+                    {
+                        <tr class="@(p.EstaAnulado ? "text-muted" : "")">
+                            <td class="fw-semibold">PAG-@p.IdPago.ToString("0000")</td>
+                            <td>@p.FechaPago.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (p.EstaAnulado)
+                                {
+                                    <s>@p.Monto.Colones()</s>
+                                }
+                                else
+                                {
+                                    @p.Monto.Colones()
+                                }
+                            </td>
+                            <td>@p.MetodoPago</td>
+                            <td>@p.RegistradoPor</td>
+                            <td><partial name="_EstadoPago" model="p" /></td>
+                            <td class="text-end">
+                                @if (esAdmin && !p.EstaAnulado)
+                                {
+                                    <a asp-action="Anular" asp-route-id="@p.IdPago" class="btn btn-danger btn-sm">Anular</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

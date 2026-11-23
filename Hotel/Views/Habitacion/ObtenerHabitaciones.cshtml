@@ -1,12 +1,19 @@
-@model List<Habitacion>
+﻿@model List<Habitacion>
 
 @{
     ViewData["Title"] = "Habitaciones";
+    bool esAdmin = User.IsInRole(Roles.Administrador);
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Habitaciones</h3>
-    <a asp-action="AgregarHabitacion" class="btn btn-success">+ Agregar habitación</a>
+    <div>
+        <h3 class="mb-0">Habitaciones</h3>
+        <small class="text-muted">@Model.Count en total · Ocupada = tiene una reserva en curso hoy</small>
+    </div>
+    @if (esAdmin)
+    {
+        <a asp-action="AgregarHabitacion" class="btn btn-success">+ Agregar habitación</a>
+    }
 </div>
 
 <partial name="_Mensajes" />
@@ -14,7 +21,7 @@
 <div class="card ht-card shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-hover mb-0">
+            <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>Código</th>
@@ -40,29 +47,27 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.Codigo</td>
+                            <td class="fw-semibold">@item.Codigo</td>
                             <td>@item.Nombre</td>
                             <td>@item.CantidadHuespedes</td>
                             <td>@item.CantidadCamas</td>
                             <td>@item.CantidadBanos</td>
                             <td>@item.Ubicacion</td>
                             <td>@item.TipoTexto</td>
-                            <td>@item.PrecioPorNoche.ToString("N2")</td>
-                            <td>
-                                @if (item.Estado)
+                            <td>@item.PrecioPorNoche.Colones()</td>
+                            <td><partial name="_EstadoBadge" model="item.EstadoOperativo" /></td>
+                            <td class="text-nowrap text-end">
+                                @if (esAdmin)
                                 {
-                                    <span class="badge bg-success">Activa</span>
+                                    <a asp-action="Editar" asp-route-id="@item.IdHabitacion" class="btn btn-warning btn-sm">Editar</a>
                                 }
-                                else
-                                {
-                                    <span class="badge bg-secondary">Inactiva</span>
-                                }
-                            </td>
-                            <td class="text-nowrap">
-                                <a asp-action="Editar" asp-route-id="@item.IdHabitacion" class="btn btn-warning btn-sm">Editar</a>
                                 <a asp-action="Detalles" asp-route-id="@item.IdHabitacion" class="btn btn-info btn-sm">Detalles</a>
-                                <a asp-action="Eliminar" asp-route-id="@item.IdHabitacion" class="btn btn-danger btn-sm">Eliminar</a>
-                                <a asp-controller="Reserva" asp-action="ObtenerReservas" asp-route-idHabitacion="@item.IdHabitacion" class="btn btn-success btn-sm">Ver reservas</a>
+                                <a asp-action="ActualizarEstado" asp-route-id="@item.IdHabitacion" class="btn btn-outline-dark btn-sm">Estado</a>
+                                <a asp-controller="Reserva" asp-action="ObtenerReservas" asp-route-idHabitacion="@item.IdHabitacion" class="btn btn-outline-success btn-sm">Reservas</a>
+                                @if (esAdmin)
+                                {
+                                    <a asp-action="Eliminar" asp-route-id="@item.IdHabitacion" class="btn btn-danger btn-sm">Eliminar</a>
+                                }
                             </td>
                         </tr>
                     }

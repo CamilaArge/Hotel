@@ -1,4 +1,4 @@
-@model RegisterViewModel
+﻿@model RegisterViewModel
 
 @{
     ViewData["Title"] = "Registrarse";
@@ -37,6 +37,7 @@
                         <select asp-for="Rol" class="form-select">
                             <option value="">Seleccione un rol</option>
                             <option value="@Roles.Administrador">Administrador</option>
+                            <option value="@Roles.Recepcionista">Recepcionista</option>
                             <option value="@Roles.Cliente">Cliente</option>
                         </select>
                         <span asp-validation-for="Rol" class="text-danger"></span>

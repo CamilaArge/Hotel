@@ -1,6 +1,5 @@
 ﻿using Hotel.Models;
 using Hotel.Data;
-using Hotel.Models;
 
 namespace Hotel.Services
 {
@@ -13,7 +12,7 @@ namespace Hotel.Services
             _contexto = contexto;
         }
 
-        // Tipos activos, para llenar el select
+       
         public List<TipoHabitacion> ObtenerActivos()
         {
             return _contexto.TiposHabitacion
@@ -23,7 +22,7 @@ namespace Hotel.Services
                 {
                     IdTipoHabitacion = t.IdTipoHabitacion,
                     Nombre = t.Nombre,
-                    Descripcion = t.Descripcion,
+                    Descripcion = t.Descripcion ?? string.Empty,
                     Estado = t.Estado,
                     FechaRegistro = t.FechaRegistro
                 })
@@ -40,7 +39,7 @@ namespace Hotel.Services
                 {
                     IdTipoHabitacion = t.IdTipoHabitacion,
                     Nombre = t.Nombre,
-                    Descripcion = t.Descripcion,
+                    Descripcion = t.Descripcion ?? string.Empty,
                     Estado = t.Estado,
                     FechaRegistro = t.FechaRegistro
                 })

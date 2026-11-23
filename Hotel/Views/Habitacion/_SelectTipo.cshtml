@@ -1,0 +1,7 @@
+﻿@model Habitacion
+
+<label asp-for="IdTipoHabitacion" class="form-label"></label>
+<select asp-for="IdTipoHabitacion" asp-items="ViewBag.Tipos" class="form-select">
+    <option value="0">Seleccione tipo</option>
+</select>
+<span asp-validation-for="IdTipoHabitacion" class="text-danger"></span>

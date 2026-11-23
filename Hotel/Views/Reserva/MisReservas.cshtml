@@ -1,0 +1,15 @@
+﻿@model List<Reserva>
+
+@{
+    ViewData["Title"] = "Mis reservas";
+    ViewData["MostrarHuesped"] = false;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Mis reservas</h3>
+    <a asp-action="ObtenerHabitaciones" class="btn btn-success">+ Nueva reserva</a>
+</div>
+
+<partial name="_Mensajes" />
+
+<partial name="_TablaReservas" model="Model" view-data="ViewData" />

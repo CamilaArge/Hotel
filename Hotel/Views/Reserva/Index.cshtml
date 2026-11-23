@@ -1,0 +1,46 @@
+﻿@model List<Reserva>
+
+@{
+    ViewData["Title"] = "Reservas";
+    var filtro = ViewBag.Filtro as FiltroReservas ?? new FiltroReservas();
+    string[] estados = { EstadosReserva.Confirmada, EstadosReserva.EnCurso, EstadosReserva.Finalizada, EstadosReserva.Cancelada };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h3 class="mb-0">Reservas</h3>
+        <small class="text-muted">@Model.Count resultado(s)</small>
+    </div>
+    <a asp-action="AgregarReserva" class="btn btn-success">+ Registrar reserva</a>
+</div>
+
+<partial name="_Mensajes" />
+
+<form asp-action="Index" method="get" class="card ht-card shadow-sm mb-3">
+    <div class="card-body row g-2 align-items-end">
+        <div class="col-md-2">
+            <label class="form-label" for="Numero">Número</label>
+            <input type="number" min="1" class="form-control" id="Numero" name="Numero" value="@filtro.Numero" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label" for="Huesped">Huésped (nombre o correo)</label>
+            <input type="text" class="form-control" id="Huesped" name="Huesped" value="@filtro.Huesped" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="Estado">Estado</label>
+            <select class="form-select" id="Estado" name="Estado">
+                <option value="">Todos</option>
+                @foreach (string estado in estados)
+                {
+                    <option value="@estado" selected="@(filtro.Estado == estado)">@estado</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+        </div>
+    </div>
+</form>
+
+<partial name="_TablaReservas" model="Model" />

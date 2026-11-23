@@ -1,0 +1,95 @@
+﻿@model HistorialPagosViewModel
+
+@{
+    ViewData["Title"] = "Historial de pagos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h3 class="mb-0">Historial de pagos</h3>
+        <small class="text-muted">@Model.Resultados.Count pago(s) · Total aplicado: @Model.TotalAplicado.Colones()</small>
+    </div>
+    <a asp-action="Buscar" class="btn btn-success">+ Registrar pago</a>
+</div>
+
+<partial name="_Mensajes" />
+
+<form asp-action="Index" method="get" class="card ht-card shadow-sm mb-3">
+    <div class="card-body row g-2 align-items-end">
+        <div class="col-md-2">
+            <label asp-for="IdReserva" class="form-label"></label>
+            <input asp-for="IdReserva" type="number" min="1" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label asp-for="Desde" class="form-label"></label>
+            <input asp-for="Desde" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label asp-for="Hasta" class="form-label"></label>
+            <input asp-for="Hasta" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label asp-for="Metodo" class="form-label"></label>
+            <select asp-for="Metodo" class="form-select">
+                <option value="">Todos</option>
+                @foreach (string m in MetodosPago.Todos) { <option value="@m">@m</option> }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label asp-for="Estado" class="form-label"></label>
+            <select asp-for="Estado" class="form-select">
+                <option value="">Todos</option>
+                @foreach (string e in EstadosPago.Todos) { <option value="@e">@e</option> }
+            </select>
+        </div>
+        <div class="col-md-2 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+        </div>
+    </div>
+</form>
+
+<div class="card ht-card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id de pago</th>
+                        <th>Reserva</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Método</th>
+                        <th>Registrado por</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Resultados.Count == 0)
+                    {
+                        <tr><td colspan="8" class="text-center text-muted py-4">No hay pagos que cumplan los filtros.</td></tr>
+                    }
+                    @foreach (var p in Model.Resultados)
+                    {
+                        <tr>
+                            <td class="fw-semibold">PAG-@p.IdPago.ToString("0000")</td>
+                            <td><a asp-action="Reserva" asp-route-id="@p.IdReserva">#@p.IdReserva</a></td>
+                            <td>@p.FechaPago.ToString("dd/MM/yyyy")</td>
+                            <td>@p.Monto.Colones()</td>
+                            <td>@p.MetodoPago</td>
+                            <td>@p.RegistradoPor</td>
+                            <td><partial name="_EstadoPago" model="p" /></td>
+                            <td class="text-end">
+                                @if (!p.EstaAnulado)
+                                {
+                                    <a asp-action="Anular" asp-route-id="@p.IdPago" class="btn btn-danger btn-sm">Anular</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

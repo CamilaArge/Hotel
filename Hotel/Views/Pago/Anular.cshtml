@@ -1,0 +1,45 @@
+﻿@model AnularPagoViewModel
+
+@{
+    ViewData["Title"] = "Anular pago";
+    var p = Model.Pago!;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card ht-card shadow-sm">
+            <div class="card-header">Anular pago PAG-@p.IdPago.ToString("0000")</div>
+            <div class="card-body p-4">
+                <partial name="_Mensajes" />
+
+                <dl class="row">
+                    <dt class="col-sm-4">Reserva</dt><dd class="col-sm-8">#@p.IdReserva</dd>
+                    <dt class="col-sm-4">Monto</dt><dd class="col-sm-8">@p.Monto.Colones()</dd>
+                    <dt class="col-sm-4">Fecha</dt><dd class="col-sm-8">@p.FechaPago.ToString("dd/MM/yyyy")</dd>
+                    <dt class="col-sm-4">Método</dt><dd class="col-sm-8">@p.MetodoPago</dd>
+                    <dt class="col-sm-4">Registrado por</dt><dd class="col-sm-8">@p.RegistradoPor</dd>
+                </dl>
+
+                <p class="small text-muted">
+                    El pago no se borra: queda en el historial como <strong>Anulado</strong> con el motivo y su usuario,
+                    y el saldo de la reserva se recalcula.
+                </p>
+
+                <form asp-action="Anular" method="post">
+                    <input type="hidden" asp-for="IdPago" />
+                    <div class="mb-3">
+                        <label asp-for="Motivo" class="form-label"></label>
+                        <textarea asp-for="Motivo" class="form-control" rows="3" placeholder="Ej.: Registro duplicado"></textarea>
+                        <span asp-validation-for="Motivo" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Confirmar anulación</button>
+                    <a asp-action="Reserva" asp-route-id="@p.IdReserva" class="btn btn-outline-secondary">Volver</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

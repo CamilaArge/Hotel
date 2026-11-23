@@ -1,14 +1,13 @@
 ﻿using Hotel.Models;
 using Hotel.Services;
-using Hotel.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hotel.Controllers
 {
-  
-    [Authorize(Roles = Roles.Administrador)]
+
+    [Authorize(Roles = Roles.Personal)]
     public class HabitacionController : Controller
     {
         private readonly HabitacionService _habitacionService;
@@ -23,42 +22,36 @@ namespace Hotel.Controllers
         // GET: Habitacion/ObtenerHabitaciones
         public IActionResult ObtenerHabitaciones()
         {
-            List<Habitacion> habitaciones = _habitacionService.ObtenerTodas();
-            return View(habitaciones);
+            return View(_habitacionService.ObtenerTodas());
         }
 
         // GET: Habitacion/Detalles/5
         public IActionResult Detalles(int id)
         {
             Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
-
-            if (habitacion == null)
-            {
-                return NotFound();
-            }
-
-            return View(habitacion);
+            return habitacion == null ? NotFound() : View(habitacion);
         }
 
-        // GET: Habitacion/AgregarHabitacion
+       
+
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult AgregarHabitacion()
         {
             CargarTipos(0);
             return View(new Habitacion());
         }
 
-        // POST: Habitacion/AgregarHabitacion
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult AgregarHabitacion(Habitacion habitacion)
         {
-          
+            // HABITACION-CP-006: código duplicado
             if (!string.IsNullOrWhiteSpace(habitacion.Codigo) && _habitacionService.ExisteCodigo(habitacion.Codigo))
             {
                 ModelState.AddModelError(nameof(Habitacion.Codigo), "Ya existe una habitación con ese código.");
             }
 
-           
             if (habitacion.IdTipoHabitacion > 0 && !_tipoHabitacionService.ExisteActivo(habitacion.IdTipoHabitacion))
             {
                 ModelState.AddModelError(nameof(Habitacion.IdTipoHabitacion), "El tipo de habitación seleccionado no es válido.");
@@ -86,7 +79,9 @@ namespace Hotel.Controllers
             return View(habitacion);
         }
 
-        // GET: Habitacion/Editar/5
+      
+
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult Editar(int id)
         {
             Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
@@ -100,9 +95,9 @@ namespace Hotel.Controllers
             return View(habitacion);
         }
 
-        // POST: Habitacion/Editar
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult Editar(Habitacion habitacion)
         {
             Habitacion? actual = _habitacionService.ObtenerPorId(habitacion.IdHabitacion);
@@ -112,6 +107,9 @@ namespace Hotel.Controllers
                 return NotFound();
             }
 
+           
+            habitacion.Codigo = actual.Codigo;
+            ModelState.Remove(nameof(Habitacion.Codigo));
 
             if (habitacion.IdTipoHabitacion > 0 &&
                 habitacion.IdTipoHabitacion != actual.IdTipoHabitacion &&
@@ -123,7 +121,7 @@ namespace Hotel.Controllers
             if (actual.Estado && !habitacion.Estado && _habitacionService.TieneReservasVigentes(habitacion.IdHabitacion))
             {
                 ModelState.AddModelError(nameof(Habitacion.Estado),
-                    "No se puede desactivar la habitación porque tiene reservas vigentes o futuras.");
+                    "No se puede desactivar la habitación porque tiene reservas en curso o futuras.");
             }
 
             if (ModelState.IsValid)
@@ -148,7 +146,52 @@ namespace Hotel.Controllers
             return View(habitacion);
         }
 
-        // GET: Habitacion/Eliminar/5
+     
+        // GET: Habitacion/ActualizarEstado/5
+        public IActionResult ActualizarEstado(int id)
+        {
+            Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
+            return habitacion == null ? NotFound() : View(habitacion);
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarEstado(int id, bool activa)
+        {
+            Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
+
+            if (habitacion == null)
+            {
+                return NotFound();
+            }
+
+            if (habitacion.Estado == activa)
+            {
+                TempData["Mensaje"] = $"La habitación {habitacion.Codigo} ya estaba en ese estado.";
+                return RedirectToAction(nameof(ObtenerHabitaciones));
+            }
+
+            if (!activa && _habitacionService.TieneReservasVigentes(id))
+            {
+                ViewBag.Error = "No se puede pasar a mantenimiento: la habitación tiene reservas en curso o futuras. " +
+                                "Primero reubique o cancele esas reservas.";
+                return View(habitacion);
+            }
+
+            if (_habitacionService.CambiarEstado(id, activa))
+            {
+                TempData["Mensaje"] = $"La habitación {habitacion.Codigo} quedó en estado " +
+                                      (activa ? EstadosHabitacion.Disponible : EstadosHabitacion.Mantenimiento) + ".";
+                return RedirectToAction(nameof(ObtenerHabitaciones));
+            }
+
+            ViewBag.Error = "No se pudo actualizar el estado.";
+            return View(habitacion);
+        }
+
+
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult Eliminar(int id)
         {
             Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
@@ -161,14 +204,15 @@ namespace Hotel.Controllers
             if (_habitacionService.TieneReservas(id))
             {
                 ViewBag.Error = "Esta habitación tiene reservas asociadas y no se puede eliminar. Puede desactivarla desde Editar.";
+                ViewBag.Bloqueada = true;
             }
 
             return View(habitacion);
         }
 
-        // POST: Habitacion/Eliminar/5
         [HttpPost, ActionName("Eliminar")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult ConfirmarEliminar(int id)
         {
             Habitacion? habitacion = _habitacionService.ObtenerPorId(id);
@@ -182,6 +226,7 @@ namespace Hotel.Controllers
             if (_habitacionService.TieneReservas(id))
             {
                 ViewBag.Error = "Esta habitación tiene reservas asociadas y no se puede eliminar. Puede desactivarla desde Editar.";
+                ViewBag.Bloqueada = true;
                 return View(habitacion);
             }
 
@@ -195,7 +240,6 @@ namespace Hotel.Controllers
             return View(habitacion);
         }
 
-        
         private void CargarTipos(int idSeleccionado)
         {
             ViewBag.Tipos = new SelectList(

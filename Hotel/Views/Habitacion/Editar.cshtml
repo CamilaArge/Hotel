@@ -1,4 +1,4 @@
-@model Habitacion
+﻿@model Habitacion
 
 @{
     ViewData["Title"] = "Editar habitación";
@@ -9,20 +9,22 @@
         <div class="card ht-card shadow-sm">
             <div class="card-body p-4">
                 <h3 class="mb-1">Editar habitación</h3>
-                <p class="text-muted">@Model.Codigo - @Model.Nombre (@Model.Ubicacion)</p>
+                <p class="text-muted">Código @Model.Codigo (no se modifica)</p>
 
                 <partial name="_Mensajes" />
 
                 <form asp-action="Editar" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    @* Campos que no se editan, pero se envían para que pase la validación *@
                     <input type="hidden" asp-for="IdHabitacion" />
                     <input type="hidden" asp-for="Codigo" />
-                    <input type="hidden" asp-for="Nombre" />
-                    <input type="hidden" asp-for="CantidadBanos" />
-                    <input type="hidden" asp-for="Ubicacion" />
                     <input type="hidden" asp-for="FechaRegistro" />
+
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
 
                     <div class="mb-3">
                         <label asp-for="Descripcion" class="form-label"></label>
@@ -31,16 +33,27 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label asp-for="CantidadHuespedes" class="form-label"></label>
                             <input asp-for="CantidadHuespedes" class="form-control" />
                             <span asp-validation-for="CantidadHuespedes" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label asp-for="CantidadCamas" class="form-label"></label>
                             <input asp-for="CantidadCamas" class="form-control" />
                             <span asp-validation-for="CantidadCamas" class="text-danger"></span>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="CantidadBanos" class="form-label"></label>
+                            <input asp-for="CantidadBanos" class="form-control" />
+                            <span asp-validation-for="CantidadBanos" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Ubicacion" class="form-label"></label>
+                        <input asp-for="Ubicacion" class="form-control" />
+                        <span asp-validation-for="Ubicacion" class="text-danger"></span>
                     </div>
 
                     <div class="row">
@@ -57,6 +70,7 @@
                     <div class="form-check mb-4">
                         <input asp-for="Estado" class="form-check-input" />
                         <label asp-for="Estado" class="form-check-label"></label>
+                        <span asp-validation-for="Estado" class="text-danger d-block"></span>
                     </div>
 
                     <button type="submit" class="btn btn-warning">Guardar cambios</button>

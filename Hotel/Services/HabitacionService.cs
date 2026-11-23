@@ -1,4 +1,4 @@
-using Hotel.Data;
+ï»¿using Hotel.Data;
 using Hotel.Data.Entidades;
 using Hotel.Models;
 
@@ -17,34 +17,38 @@ namespace Hotel.Services
 
         public List<Habitacion> ObtenerTodas()
         {
-            Dictionary<int, string> tipos = ObtenerNombresTipos();
-
-            return _contexto.Habitaciones
-                .OrderBy(h => h.Codigo)
-                .ToList()
-                .Select(h => ConvertirAModelo(h, tipos))
-                .ToList();
+            return Convertir(_contexto.Habitaciones.OrderBy(h => h.Codigo).ToList());
         }
 
         public List<Habitacion> ObtenerActivas()
         {
-            Dictionary<int, string> tipos = ObtenerNombresTipos();
+            return Convertir(_contexto.Habitaciones.Where(h => h.Estado).OrderBy(h => h.Codigo).ToList());
+        }
 
-            return _contexto.Habitaciones
-                .Where(h => h.Estado)
-                .OrderBy(h => h.Codigo)
-                .ToList()
-                .Select(h => ConvertirAModelo(h, tipos))
+  
+        public List<Habitacion> ObtenerDisponibles(DateTime entrada, DateTime salida, int personas)
+        {
+            DateTime e = entrada.Date;
+            DateTime s = salida.Date;
+
+            IQueryable<int> ocupadas = _contexto.Reservas
+                .Where(r => r.Estado && r.FechaEntrada < s && r.FechaSalida > e)
+                .Select(r => r.IdHabitacion);
+
+            List<HabitacionEntidad> libres = _contexto.Habitaciones
+                .Where(h => h.Estado && h.CantidadHuespedes >= personas && !ocupadas.Contains(h.IdHabitacion))
+                .OrderBy(h => h.PrecioPorNoche)
                 .ToList();
+
+            return Convertir(libres);
         }
 
         public Habitacion? ObtenerPorId(int id)
         {
             HabitacionEntidad? entidad = _contexto.Habitaciones.Find(id);
-            return entidad == null ? null : ConvertirAModelo(entidad, ObtenerNombresTipos());
+            return entidad == null ? null : Convertir(new List<HabitacionEntidad> { entidad })[0];
         }
 
-        
         public bool ExisteCodigo(string codigo, int idExcluir = 0)
         {
             string codigoLimpio = codigo.Trim().ToUpper();
@@ -67,16 +71,26 @@ namespace Hotel.Services
             return _contexto.Reservas.Any(r =>
                 r.IdHabitacion == idHabitacion &&
                 r.Estado &&
-                r.FechaSalida >= hoy);
+                r.FechaSalida > hoy);
         }
 
         public bool Agregar(Habitacion habitacion)
         {
-            HabitacionEntidad entidad = ConvertirAEntidad(habitacion);
-            entidad.Codigo = entidad.Codigo.Trim();
-            entidad.Estado = true;
-            entidad.FechaRegistro = _fechaService.ObtenerFechaActual();
-            entidad.FechaModificacion = null;
+            HabitacionEntidad entidad = new()
+            {
+                IdTipoHabitacion = habitacion.IdTipoHabitacion,
+                Codigo = habitacion.Codigo.Trim().ToUpper(),
+                Nombre = habitacion.Nombre.Trim(),
+                Descripcion = habitacion.Descripcion?.Trim(),
+                CantidadHuespedes = habitacion.CantidadHuespedes,
+                CantidadCamas = habitacion.CantidadCamas,
+                CantidadBanos = habitacion.CantidadBanos,
+                Ubicacion = habitacion.Ubicacion?.Trim(),
+                PrecioPorNoche = habitacion.PrecioPorNoche,
+                Estado = true,
+                FechaRegistro = _fechaService.ObtenerFechaActual(),
+                FechaModificacion = null
+            };
 
             _contexto.Habitaciones.Add(entidad);
             return _contexto.SaveChanges() > 0;
@@ -91,15 +105,33 @@ namespace Hotel.Services
                 return false;
             }
 
-            // Solo se actualizan los campos editables (código, nombre, baños y ubicación no cambian)
+    
             entidad.IdTipoHabitacion = habitacion.IdTipoHabitacion;
-            entidad.Descripcion = habitacion.Descripcion;
+            entidad.Nombre = habitacion.Nombre.Trim();
+            entidad.Descripcion = habitacion.Descripcion?.Trim();
             entidad.CantidadHuespedes = habitacion.CantidadHuespedes;
             entidad.CantidadCamas = habitacion.CantidadCamas;
+            entidad.CantidadBanos = habitacion.CantidadBanos;
+            entidad.Ubicacion = habitacion.Ubicacion?.Trim();
             entidad.PrecioPorNoche = habitacion.PrecioPorNoche;
             entidad.Estado = habitacion.Estado;
             entidad.FechaModificacion = _fechaService.ObtenerFechaActual();
 
+            return _contexto.SaveChanges() > 0;
+        }
+
+     
+        public bool CambiarEstado(int idHabitacion, bool activa)
+        {
+            HabitacionEntidad? entidad = _contexto.Habitaciones.Find(idHabitacion);
+
+            if (entidad == null)
+            {
+                return false;
+            }
+
+            entidad.Estado = activa;
+            entidad.FechaModificacion = _fechaService.ObtenerFechaActual();
             return _contexto.SaveChanges() > 0;
         }
 
@@ -116,54 +148,42 @@ namespace Hotel.Services
             return _contexto.SaveChanges() > 0;
         }
 
-        // Nombres de los tipos desde la tabla TipoHabitacion (son pocos, se leen de una vez)
-        private Dictionary<int, string> ObtenerNombresTipos()
+
+        private List<Habitacion> Convertir(List<HabitacionEntidad> entidades)
         {
-            return _contexto.TiposHabitacion
+            Dictionary<int, string> tipos = _contexto.TiposHabitacion
                 .ToDictionary(t => t.IdTipoHabitacion, t => t.Nombre);
-        }
 
-        // ----- Conversiones entre la entidad de la base de datos y el modelo del sistema -----
+          
+            DateTime hoy = _fechaService.ObtenerFechaActual().Date;
+            HashSet<int> ocupadasHoy = _contexto.Reservas
+                .Where(r => r.Estado && r.FechaEntrada <= hoy && r.FechaSalida > hoy)
+                .Select(r => r.IdHabitacion)
+                .Distinct()
+                .ToHashSet();
 
-        private static Habitacion ConvertirAModelo(HabitacionEntidad entidad, Dictionary<int, string> tipos)
-        {
-            return new Habitacion
+            return entidades.Select(entidad => new Habitacion
             {
                 IdHabitacion = entidad.IdHabitacion,
                 IdTipoHabitacion = entidad.IdTipoHabitacion,
                 TipoTexto = tipos.TryGetValue(entidad.IdTipoHabitacion, out string? nombreTipo) ? nombreTipo : "Sin tipo",
                 Codigo = entidad.Codigo,
                 Nombre = entidad.Nombre,
-                Descripcion = entidad.Descripcion,
+                Descripcion = entidad.Descripcion ?? string.Empty,
                 CantidadHuespedes = entidad.CantidadHuespedes,
                 CantidadCamas = entidad.CantidadCamas,
                 CantidadBanos = entidad.CantidadBanos,
-                Ubicacion = entidad.Ubicacion,
+                Ubicacion = entidad.Ubicacion ?? string.Empty,
                 PrecioPorNoche = entidad.PrecioPorNoche,
                 Estado = entidad.Estado,
                 FechaRegistro = entidad.FechaRegistro,
-                FechaModificacion = entidad.FechaModificacion
-            };
-        }
-
-        private static HabitacionEntidad ConvertirAEntidad(Habitacion habitacion)
-        {
-            return new HabitacionEntidad
-            {
-                IdHabitacion = habitacion.IdHabitacion,
-                IdTipoHabitacion = habitacion.IdTipoHabitacion,
-                Codigo = habitacion.Codigo,
-                Nombre = habitacion.Nombre,
-                Descripcion = habitacion.Descripcion,
-                CantidadHuespedes = habitacion.CantidadHuespedes,
-                CantidadCamas = habitacion.CantidadCamas,
-                CantidadBanos = habitacion.CantidadBanos,
-                Ubicacion = habitacion.Ubicacion,
-                PrecioPorNoche = habitacion.PrecioPorNoche,
-                Estado = habitacion.Estado,
-                FechaRegistro = habitacion.FechaRegistro,
-                FechaModificacion = habitacion.FechaModificacion
-            };
+                FechaModificacion = entidad.FechaModificacion,
+                EstadoOperativo = !entidad.Estado
+                    ? EstadosHabitacion.Mantenimiento
+                    : ocupadasHoy.Contains(entidad.IdHabitacion)
+                        ? EstadosHabitacion.Ocupada
+                        : EstadosHabitacion.Disponible
+            }).ToList();
         }
     }
 }

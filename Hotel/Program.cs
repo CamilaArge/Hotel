@@ -1,5 +1,4 @@
-using Hotel.Models;
-using Hotel.Services;
+﻿using Hotel.Models;
 using Hotel.Data;
 using Hotel.Services;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +39,8 @@ builder.Services.AddScoped<FechaService>();
 builder.Services.AddScoped<HabitacionService>();
 builder.Services.AddScoped<ReservaService>();
 builder.Services.AddScoped<TipoHabitacionService>();
+builder.Services.AddScoped<UsuarioHotelService>();
+builder.Services.AddScoped<PagoService>();
 
 var app = builder.Build();
 
@@ -48,7 +49,7 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    foreach (string rol in new[] { Roles.Administrador, Roles.Cliente })
+    foreach (string rol in Roles.Todos)
     {
         if (!await roleManager.RoleExistsAsync(rol))
         {

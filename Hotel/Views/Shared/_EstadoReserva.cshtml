@@ -1,0 +1,17 @@
+﻿@model string
+
+@{
+    string clase = Model switch
+    {
+        EstadosReserva.Confirmada => "bg-success",
+        EstadosReserva.EnCurso => "bg-primary",
+        EstadosReserva.Finalizada => "bg-secondary",
+        EstadosReserva.Cancelada => "bg-danger",
+
+        "Completo" => "bg-success",
+        "Parcial" => "bg-warning text-dark",
+        "Pendiente" => "bg-light text-dark border",
+        _ => "bg-light text-dark"
+    };
+}
+<span class="badge @clase">@Model</span>

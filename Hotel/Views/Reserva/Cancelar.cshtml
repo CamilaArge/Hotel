@@ -1,0 +1,37 @@
+﻿@model Reserva
+
+@{
+    ViewData["Title"] = "Cancelar reserva";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card ht-card shadow-sm">
+            <div class="card-header">¿Seguro que desea cancelar esta reserva?</div>
+            <div class="card-body p-4">
+                <partial name="_Mensajes" />
+
+                <p class="text-muted">
+                    La reserva quedará como <strong>Cancelada</strong> y la habitación volverá a estar disponible en esas fechas.
+                    La reserva no se borra: se conserva en el historial.
+                </p>
+
+                @if (Model.TotalPagado > 0)
+                {
+                    <div class="alert alert-warning">
+                        Esta reserva tiene <strong>@Model.TotalPagado.Colones()</strong> en pagos aplicados.
+                        Los pagos se conservan; un administrador debe anularlos o gestionar el reembolso según la política del hotel.
+                    </div>
+                }
+
+                <partial name="_DetallesParcial" model="Model" />
+            </div>
+            <div class="card-footer bg-white">
+                <form asp-action="Cancelar" asp-route-id="@Model.IdReserva" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Sí, cancelar reserva</button>
+                </form>
+                <a asp-action="Detalles" asp-route-id="@Model.IdReserva" class="btn btn-outline-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
