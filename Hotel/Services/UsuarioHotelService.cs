@@ -29,9 +29,11 @@ namespace Hotel.Services
                 ?? throw new InvalidOperationException(
                     "El usuario de la sesión no existe.");
 
-            string correo = usuarioIdentity.Email
-                ?? usuarioIdentity.UserName
-                ?? idIdentity;
+            string correo = !string.IsNullOrWhiteSpace(usuarioIdentity.Email)
+                ? usuarioIdentity.Email
+                : !string.IsNullOrWhiteSpace(usuarioIdentity.UserName)
+                    ? usuarioIdentity.UserName
+                    : idIdentity;
 
             // Buscar si ya existe un registro relacionado con Identity.
             var usuario = _contexto.Usuarios
@@ -44,7 +46,7 @@ namespace Hotel.Services
 
             // Si ya existe por correo, vincularlo con Identity.
             var porCorreo = _contexto.Usuarios
-                .FirstOrDefault(u => u.Correo == correo);
+                .FirstOrDefault(u => u.Correo.ToLower() == correo.ToLower());
 
             if (porCorreo != null)
             {
@@ -126,6 +128,13 @@ namespace Hotel.Services
             return texto.Length <= maximo
                 ? texto
                 : texto[..maximo];
+        }
+        public string? ObtenerIdentityId(int idUsuario)
+        {
+            return _contexto.Usuarios
+                .Where(u => u.IdUsuario == idUsuario)
+                .Select(u => u.IdentityId)
+                .FirstOrDefault();
         }
     }
 }

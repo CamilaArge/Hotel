@@ -11,11 +11,17 @@
     <div class="col-lg-8">
         <div class="card ht-card shadow-sm">
             <div class="card-body p-4">
-                <h3 class="mb-1">@(esPersonal ? "Registrar reserva" : "Nueva reserva")</h3>
+
+                <h3 class="mb-1">
+                    @(esPersonal ? "Registrar reserva" : "Nueva reserva")
+                </h3>
+
                 @if (!esPersonal && habitacion != null)
                 {
                     <p class="text-muted">
-                        Habitación: <strong>@habitacion.Codigo - @habitacion.Nombre</strong> (@habitacion.TipoTexto) ·
+                        Habitación:
+                        <strong>@habitacion.Codigo - @habitacion.Nombre</strong>
+                        (@habitacion.TipoTexto) ·
                         Máximo @habitacion.CantidadHuespedes huéspedes ·
                         @habitacion.PrecioPorNoche.Colones() por noche
                     </p>
@@ -24,36 +30,59 @@
                 <partial name="_Mensajes" />
 
                 <form asp-action="AgregarReserva" method="post" id="formReserva">
+
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     @if (esPersonal)
                     {
                         <div class="mb-3">
-                            <label asp-for="IdUsuario" class="form-label"></label>
-                            <select asp-for="IdUsuario" class="form-select">
+
+                            <label asp-for="IdentityIdUsuario" class="form-label">
+                                Huésped
+                            </label>
+
+                            <select asp-for="IdentityIdUsuario" class="form-select">
                                 <option value="">Seleccione el huésped</option>
+
                                 @foreach (var h in huespedes ?? new List<HuespedOpcion>())
                                 {
-                                    <option value="@h.Id" selected="@(h.Id == Model.IdUsuario)">@h.Texto</option>
+                                    <option value="@h.Id">@h.Texto</option>
                                 }
                             </select>
-                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
-                            <div class="form-text">Solo aparecen cuentas con rol Cliente. Si el huésped no tiene cuenta, debe registrarse primero.</div>
+
+                            <span asp-validation-for="IdentityIdUsuario"
+                                  class="text-danger"></span>
+
+                            <div class="form-text">
+                                Solo aparecen cuentas con rol Cliente.
+                                Si el huésped no tiene cuenta, debe registrarse primero.
+                            </div>
+
                         </div>
                     }
 
                     <partial name="_FormularioReserva" model="Model" />
 
-                    <button type="submit" class="btn btn-success">Reservar</button>
+                    <button type="submit" class="btn btn-success">
+                        Reservar
+                    </button>
+
                     @if (esPersonal)
                     {
-                        <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            Volver
+                        </a>
                     }
                     else
                     {
-                        <a asp-action="ObtenerHabitaciones" class="btn btn-outline-secondary">Volver</a>
+                        <a asp-action="ObtenerHabitaciones"
+                           class="btn btn-outline-secondary">
+                            Volver
+                        </a>
                     }
+
                 </form>
+
             </div>
         </div>
     </div>

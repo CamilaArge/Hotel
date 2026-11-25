@@ -33,6 +33,55 @@ namespace Hotel.Data
                 .WithOne()
                 .HasForeignKey<UsuarioEntidad>(u => u.IdentityId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Usuario - Reserva
+            builder.Entity<ReservaEntidad>()
+                .HasOne<UsuarioEntidad>()
+                .WithMany()
+                .HasForeignKey(r => r.IdUsuario)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Usuario - Pago
+            builder.Entity<PagoEntidad>()
+                .HasOne<UsuarioEntidad>()
+                .WithMany()
+                .HasForeignKey(p => p.IdUsuarioRegistro)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Usuario - Anulación de pago
+            builder.Entity<AnulacionPagoEntidad>()
+                .HasOne<UsuarioEntidad>()
+                .WithMany()
+                .HasForeignKey(a => a.IdUsuario)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Pago - Anulación de pago
+            builder.Entity<AnulacionPagoEntidad>()
+                .HasOne<PagoEntidad>()
+                .WithMany()
+                .HasForeignKey(a => a.IdPago)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Reserva - Pago
+            builder.Entity<PagoEntidad>()
+                .HasOne<ReservaEntidad>()
+                .WithMany()
+                .HasForeignKey(p => p.IdReserva)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Reserva - Habitación
+            builder.Entity<ReservaEntidad>()
+                .HasOne<HabitacionEntidad>()
+                .WithMany()
+                .HasForeignKey(r => r.IdHabitacion)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Reserva - Paquete
+            builder.Entity<ReservaEntidad>()
+                .HasOne<PaqueteEntidad>()
+                .WithMany()
+                .HasForeignKey(r => r.IdPaquete)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -374,7 +374,7 @@ namespace Hotel.Services
                 Reserva reserva = new Reserva
                 {
                     IdReserva = e.IdReserva,
-                    IdUsuario = e.IdUsuario.ToString(),
+                    IdUsuario = e.IdUsuario,
                     IdHabitacion = e.IdHabitacion,
                     IdPaquete = e.IdPaquete,
                     FechaEntrada = e.FechaEntrada,

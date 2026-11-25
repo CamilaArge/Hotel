@@ -15,13 +15,16 @@ namespace Hotel.Controllers
         private readonly FechaService _fechaService;
         private readonly UserManager<IdentityUser> _userManager;
 
+        private readonly UsuarioHotelService _usuarioHotelService;
+
         public ReservaController(ReservaService reservaService, HabitacionService habitacionService,
-            FechaService fechaService, UserManager<IdentityUser> userManager)
+            FechaService fechaService, UserManager<IdentityUser> userManager, UsuarioHotelService usuarioHotelService)
         {
             _reservaService = reservaService;
             _habitacionService = habitacionService;
             _fechaService = fechaService;
             _userManager = userManager;
+            _usuarioHotelService = usuarioHotelService;
         }
 
         private string IdUsuarioActual => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
@@ -137,14 +140,19 @@ namespace Hotel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AgregarReserva(Reserva reserva)
         {
-       
+
             string idUsuario;
+
             if (EsPersonal)
             {
-                idUsuario = reserva.IdUsuario ?? string.Empty;
-                if (string.IsNullOrEmpty(idUsuario) || await _userManager.FindByIdAsync(idUsuario) == null)
+                idUsuario = reserva.IdentityIdUsuario ?? string.Empty;
+
+                if (string.IsNullOrWhiteSpace(idUsuario) ||
+                    await _userManager.FindByIdAsync(idUsuario) == null)
                 {
-                    ModelState.AddModelError(nameof(Reserva.IdUsuario), "Debe seleccionar el huésped.");
+                    ModelState.AddModelError(
+                        nameof(Reserva.IdentityIdUsuario),
+                        "Debe seleccionar el huésped.");
                 }
             }
             else
@@ -301,7 +309,7 @@ namespace Hotel.Controllers
             return View(reserva);
         }
 
-    
+
         private Reserva? ObtenerReservaVisible(int idReserva)
         {
             Reserva? reserva = _reservaService.ObtenerPorId(idReserva);
@@ -311,10 +319,23 @@ namespace Hotel.Controllers
                 return null;
             }
 
-            return EsPersonal || reserva.IdUsuario == IdUsuarioActual ? reserva : null;
+            // El personal puede consultar cualquier reserva.
+            if (EsPersonal)
+            {
+                return reserva;
+            }
+
+            // Obtener las reservas asociadas al usuario que inició sesión.
+            List<Reserva> misReservas =
+                _reservaService.ObtenerPorUsuario(IdUsuarioActual);
+
+            // Comprobar que la reserva pertenece al cliente.
+            return misReservas.Any(r => r.IdReserva == idReserva)
+                ? reserva
+                : null;
         }
 
-  
+
         private bool PuedeCancelar(Reserva reserva, out string? motivo)
         {
             motivo = null;

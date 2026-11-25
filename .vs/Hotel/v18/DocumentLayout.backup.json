@@ -3,32 +3,24 @@
   "WorkspaceRootPath": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\reservaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\models\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\services\\pagoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\pagoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\data\\entidades\\reservaentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\entidades\\reservaentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\services\\usuariohotelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\services\\usuariohotelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\data\\entidades\\tipohabitacionentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\entidades\\tipohabitacionentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\data\\entidades\\pagoentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\entidades\\pagoentidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\data\\hotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\hotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -271,92 +263,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Reserva.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\Reserva.cs",
-              "RelativeDocumentMoniker": "Hotel\\Models\\Reserva.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\Reserva.cs",
-              "RelativeToolTip": "Hotel\\Models\\Reserva.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAxwDoAAABRAAAAAAAAAA==",
+              "Title": "RegisterViewModel.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\RegisterViewModel.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\RegisterViewModel.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\RegisterViewModel.cs",
+              "RelativeToolTip": "Hotel\\Models\\RegisterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T06:19:03.665Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PagoService.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Services\\PagoService.cs",
-              "RelativeDocumentMoniker": "Hotel\\Services\\PagoService.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Services\\PagoService.cs",
-              "RelativeToolTip": "Hotel\\Services\\PagoService.cs",
-              "ViewState": "AgIAAOMAAAAAAAAAAAAIwPEAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T06:12:17.76Z",
+              "WhenOpened": "2026-11-25T05:09:20.833Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ReservaService.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Services\\ReservaService.cs",
-              "RelativeDocumentMoniker": "Hotel\\Services\\ReservaService.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Services\\ReservaService.cs",
-              "RelativeToolTip": "Hotel\\Services\\ReservaService.cs",
-              "ViewState": "AgIAAGoBAAAAAAAAAAAIwHgBAAA3AAAAAAAAAA==",
+              "Title": "Roles.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\Roles.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\Roles.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\Roles.cs",
+              "RelativeToolTip": "Hotel\\Models\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T05:50:30.227Z",
+              "WhenOpened": "2026-11-25T05:08:48.639Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TipoHabitacionEntidad.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\Entidades\\TipoHabitacionEntidad.cs",
-              "RelativeDocumentMoniker": "Hotel\\Data\\Entidades\\TipoHabitacionEntidad.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\Entidades\\TipoHabitacionEntidad.cs",
-              "RelativeToolTip": "Hotel\\Data\\Entidades\\TipoHabitacionEntidad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAzAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Hotel\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAuwHIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T05:44:26.99Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PagoEntidad.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\Entidades\\PagoEntidad.cs",
-              "RelativeDocumentMoniker": "Hotel\\Data\\Entidades\\PagoEntidad.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\Entidades\\PagoEntidad.cs",
-              "RelativeToolTip": "Hotel\\Data\\Entidades\\PagoEntidad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T05:43:53.22Z",
+              "WhenOpened": "2026-11-25T05:07:26.579Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ReservaEntidad.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\Entidades\\ReservaEntidad.cs",
-              "RelativeDocumentMoniker": "Hotel\\Data\\Entidades\\ReservaEntidad.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\Entidades\\ReservaEntidad.cs",
-              "RelativeToolTip": "Hotel\\Data\\Entidades\\ReservaEntidad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Program.cs",
+              "RelativeDocumentMoniker": "Hotel\\Program.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Program.cs",
+              "RelativeToolTip": "Hotel\\Program.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAYwBQAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T05:43:39.916Z",
+              "WhenOpened": "2026-11-25T05:06:02.605Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "UsuarioHotelService.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Services\\UsuarioHotelService.cs",
-              "RelativeDocumentMoniker": "Hotel\\Services\\UsuarioHotelService.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Services\\UsuarioHotelService.cs",
-              "RelativeToolTip": "Hotel\\Services\\UsuarioHotelService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAbAAAAAAAAAA==",
+              "Title": "HotelContext.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\HotelContext.cs",
+              "RelativeDocumentMoniker": "Hotel\\Data\\HotelContext.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\HotelContext.cs",
+              "RelativeToolTip": "Hotel\\Data\\HotelContext.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAYwBgAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-23T05:43:22.742Z",
+              "WhenOpened": "2026-11-25T05:03:07.472Z",
               "EditorCaption": ""
             }
           ]

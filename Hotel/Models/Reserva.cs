@@ -8,9 +8,12 @@ namespace Hotel.Models
         [Display(Name = "Número de reserva")]
         public int IdReserva { get; set; }
 
-       
+
+
         [Display(Name = "Huésped")]
-        public string? IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
+
+        public string? IdentityIdUsuario { get; set; }
 
         [Display(Name = "Habitación")]
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar una habitación")]
