@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Hotel.Data.Entidades.UsuarioEntidad>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>Administración de usuarios</h2>
+        <p class="text-muted mb-0">
+            Consulte y administre los usuarios del hotel.
+        </p>
+    </div>
+
+    <a asp-action="Crear" class="btn btn-success">
+        Registrar usuario
+    </a>
+</div>
+
+<div class="card ht-card shadow-sm mb-4">
+    <div class="card-body">
+
+        <form asp-action="Index" method="get">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-6">
+                    <label class="form-label">Buscar usuario</label>
+                    <input type="text"
+                           name="buscar"
+                           value="@ViewBag.Buscar"
+                           class="form-control"
+                           placeholder="Nombre, cédula o correo" />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Filtrar por rol</label>
+                    <select name="rol" class="form-select">
+                        <option value="">Todos los roles</option>
+
+                        <option value="Cliente"
+                                selected="@(ViewBag.Rol?.ToString() == "Cliente")">
+                            Cliente
+                        </option>
+
+                        <option value="Recepcionista"
+                                selected="@(ViewBag.Rol?.ToString() == "Recepcionista")">
+                            Recepcionista
+                        </option>
+
+                        <option value="Administrador"
+                                selected="@(ViewBag.Rol?.ToString() == "Administrador")">
+                            Administrador
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Buscar
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="card ht-card shadow-sm">
+    <div class="card-body">
+
+        <h5 class="mb-3">Usuarios registrados</h5>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        foreach (var usuario in Model)
+                        {
+                            <tr>
+                                <td>@usuario.Nombre</td>
+                                <td>@usuario.Cedula</td>
+                                <td>@usuario.Correo</td>
+                                <td>@usuario.Telefono</td>
+                                <td>@usuario.Rol</td>
+                                <td>
+                                    @if (usuario.Activo)
+                                    {
+                                        <span class="badge bg-success">
+                                            Activo
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+                                            Inactivo
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No se encontraron usuarios.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="text-muted">
+            Total de usuarios encontrados: @Model.Count()
+        </div>
+
+    </div>
+</div>

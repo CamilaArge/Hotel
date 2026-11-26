@@ -1,9 +1,19 @@
+@inject Hotel.Services.UsuarioHotelService UsuarioHotelService
+
+@using System.Security.Claims
+
+@{
+    var identityId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var nombreUsuario = !string.IsNullOrEmpty(identityId)
+        ? UsuarioHotelService.ObtenerNombrePorIdentityId(identityId)
+        : "Usuario";
+}
 
 <ul class="navbar-nav">
     @if (User.Identity?.IsAuthenticated == true)
     {
         <li class="nav-item">
-            <span class="nav-link text-white-50">Hola @User.Identity.Name</span>
+            <span class="nav-link text-white-50">Hola @nombreUsuario</span>
         </li>
         <li class="nav-item">
             <form asp-controller="Account" asp-action="LogOff" method="post" class="d-inline">

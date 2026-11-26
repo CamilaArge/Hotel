@@ -1,8 +1,8 @@
 ﻿using Hotel.Models;
+using Hotel.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace Hotel.Controllers
 {
@@ -10,11 +10,16 @@ namespace Hotel.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UsuarioHotelService _usuarioHotelService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            UsuarioHotelService usuarioHotelService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _usuarioHotelService = usuarioHotelService;
         }
 
         // GET: Account/Login
@@ -29,7 +34,8 @@ namespace Hotel.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
+        public async Task<IActionResult> Login(
+            LoginViewModel model, string? returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
 
@@ -38,11 +44,16 @@ namespace Hotel.Controllers
                 return View(model);
             }
 
-            var resultado = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+            var resultado = await _signInManager.PasswordSignInAsync(
+                model.Email,
+                model.Password,
+                model.RememberMe,
+                lockoutOnFailure: false);
 
             if (resultado.Succeeded)
             {
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                if (!string.IsNullOrEmpty(returnUrl) &&
+                    Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
                 }
@@ -50,7 +61,10 @@ namespace Hotel.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(string.Empty, "Correo o contraseña incorrectos.");
+            ModelState.AddModelError(
+                string.Empty,
+                "Correo o contraseña incorrectos.");
+
             return View(model);
         }
 
@@ -67,35 +81,74 @@ namespace Hotel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!Roles.Todos.Contains(model.Rol))
-            {
-                ModelState.AddModelError(nameof(model.Rol), "Debe seleccionar un rol válido");
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var usuario = new IdentityUser { UserName = model.Email, Email = model.Email };
-            var resultado = await _userManager.CreateAsync(usuario, model.Password);
-
-            if (resultado.Succeeded)
+            var usuario = new IdentityUser
             {
-                await _userManager.AddToRoleAsync(usuario, model.Rol);
-                await _signInManager.SignInAsync(usuario, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                UserName = model.Email,
+                Email = model.Email
+            };
+
+            var resultado = await _userManager.CreateAsync(
+                usuario, model.Password);
+
+            if (!resultado.Succeeded)
+            {
+                foreach (var error in resultado.Errors)
+                {
+                    ModelState.AddModelError(
+                        string.Empty, error.Description);
+                }
+
+                return View(model);
             }
 
-            foreach (var error in resultado.Errors)
+            var resultadoRol = await _userManager.AddToRoleAsync(
+                usuario, Roles.Cliente);
+
+            if (!resultadoRol.Succeeded)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                await _userManager.DeleteAsync(usuario);
+
+                foreach (var error in resultadoRol.Errors)
+                {
+                    ModelState.AddModelError(
+                        string.Empty, error.Description);
+                }
+
+                return View(model);
             }
 
-            return View(model);
+            try
+            {
+                // Crear o vincular el registro en la tabla Usuario
+                _usuarioHotelService.AsegurarRegistroCliente(
+                    usuario.Id,
+                    model.Nombre,
+                    model.Cedula,
+                    model.Telefono,
+                    model.Direccion);
+            }
+            catch
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "No fue posible guardar sus datos personales. Contacte al administrador.");
+
+                return View(model);
+            }
+
+            // Iniciar sesión después de guardar correctamente los datos
+            await _signInManager.SignInAsync(
+                usuario, isPersistent: false);
+
+            return RedirectToAction("Index", "Home");
         }
 
-  
+        // POST: Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
@@ -104,7 +157,7 @@ namespace Hotel.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: Account/AccessDenied 
+        // GET: Account/AccessDenied
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {

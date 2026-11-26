@@ -1,0 +1,128 @@
+﻿@model Hotel.Models.UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Registrar usuario";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+
+        <div class="card ht-card shadow-sm">
+            <div class="card-body p-4">
+
+                <h2 class="mb-2">Registrar usuario</h2>
+                <p class="text-muted mb-4">
+                    Complete los datos para crear una nueva cuenta.
+                </p>
+
+                <form asp-action="Crear" method="post">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="text-danger mb-3">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Cedula" class="form-label"></label>
+                        <input asp-for="Cedula" class="form-control" />
+                        <span asp-validation-for="Cedula"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email"
+                               class="form-control"
+                               autocomplete="username" />
+                        <span asp-validation-for="Email"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Telefono" class="form-label"></label>
+                        <input asp-for="Telefono" class="form-control" />
+                        <span asp-validation-for="Telefono"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Direccion" class="form-label"></label>
+                        <textarea asp-for="Direccion"
+                                  class="form-control"
+                                  rows="2"></textarea>
+                        <span asp-validation-for="Direccion"
+                              class="text-danger"></span>
+                        <div class="form-text">Campo opcional.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password"
+                               class="form-control"
+                               autocomplete="new-password" />
+                        <span asp-validation-for="Password"
+                              class="text-danger"></span>
+                        <div class="form-text">
+                            Mínimo 6 caracteres, con mayúscula,
+                            minúscula, número y símbolo.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword"
+                               class="form-label"></label>
+                        <input asp-for="ConfirmPassword"
+                               class="form-control"
+                               autocomplete="new-password" />
+                        <span asp-validation-for="ConfirmPassword"
+                              class="text-danger"></span>
+                    </div>
+
+                    @if (User.IsInRole(Roles.Administrador))
+                    {
+                        <div class="mb-3">
+                            <label asp-for="Rol" class="form-label"></label>
+
+                            <select asp-for="Rol" class="form-select">
+                                <option value="Cliente">Cliente</option>
+                                <option value="Recepcionista">Recepcionista</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
+
+                            <span asp-validation-for="Rol"
+                                  class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" asp-for="Rol" value="Cliente" />
+                    }
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-success flex-fill">
+                            Registrar usuario
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            Cancelar
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

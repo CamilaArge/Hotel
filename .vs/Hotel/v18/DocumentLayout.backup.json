@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\models\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\models\\usuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\models\\usuarioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\views\\usuario\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\usuario\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\data\\hotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\data\\hotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|d:\\universidad\\2026\\tercer cuatrimestre 2026\\hotel\\hotel\\views\\usuario\\crear.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{191CE172-0FB0-4C11-A1D4-726249AF7972}|Hotel\\Hotel.csproj|solutionrelative:hotel\\views\\usuario\\crear.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -263,66 +259,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RegisterViewModel.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\RegisterViewModel.cs",
-              "RelativeDocumentMoniker": "Hotel\\Models\\RegisterViewModel.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\RegisterViewModel.cs",
-              "RelativeToolTip": "Hotel\\Models\\RegisterViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA3AAAAAAAAAA==",
+              "Title": "UsuarioController.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Controllers\\UsuarioController.cs",
+              "RelativeDocumentMoniker": "Hotel\\Controllers\\UsuarioController.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Controllers\\UsuarioController.cs",
+              "RelativeToolTip": "Hotel\\Controllers\\UsuarioController.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAAwAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-25T05:09:20.833Z",
+              "WhenOpened": "2026-11-26T02:51:35.052Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Roles.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\Roles.cs",
-              "RelativeDocumentMoniker": "Hotel\\Models\\Roles.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\Roles.cs",
-              "RelativeToolTip": "Hotel\\Models\\Roles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Title": "UsuarioViewModel.cs",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\UsuarioViewModel.cs",
+              "RelativeDocumentMoniker": "Hotel\\Models\\UsuarioViewModel.cs",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Models\\UsuarioViewModel.cs",
+              "RelativeToolTip": "Hotel\\Models\\UsuarioViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-25T05:08:48.639Z",
+              "WhenOpened": "2026-11-26T02:51:15.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Hotel\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Hotel\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAuwHIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-25T05:07:26.579Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Views\\Usuario\\Index.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Usuario\\Index.cshtml",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Views\\Usuario\\Index.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Usuario\\Index.cshtml",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAHgAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-11-26T02:45:01.746Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Program.cs",
-              "RelativeDocumentMoniker": "Hotel\\Program.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Program.cs",
-              "RelativeToolTip": "Hotel\\Program.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAYwBQAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-25T05:06:02.605Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HotelContext.cs",
-              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\HotelContext.cs",
-              "RelativeDocumentMoniker": "Hotel\\Data\\HotelContext.cs",
-              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Data\\HotelContext.cs",
-              "RelativeToolTip": "Hotel\\Data\\HotelContext.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAYwBgAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-25T05:03:07.472Z",
+              "Title": "Crear.cshtml",
+              "DocumentMoniker": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Views\\Usuario\\Crear.cshtml",
+              "RelativeDocumentMoniker": "Hotel\\Views\\Usuario\\Crear.cshtml",
+              "ToolTip": "D:\\Universidad\\2026\\Tercer Cuatrimestre 2026\\Hotel\\Hotel\\Views\\Usuario\\Crear.cshtml",
+              "RelativeToolTip": "Hotel\\Views\\Usuario\\Crear.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-11-26T02:43:50.196Z",
               "EditorCaption": ""
             }
           ]

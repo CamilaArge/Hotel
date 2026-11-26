@@ -1,8 +1,8 @@
 ﻿using Hotel.Data;
 using Hotel.Data.Entidades;
+using Hotel.Models;
 
 namespace Hotel.Services
-
 {
     public class UsuarioHotelService
     {
@@ -19,11 +19,10 @@ namespace Hotel.Services
             _fechaService = fechaService;
         }
 
-        // Sincroniza el usuario de Identity con la tabla Usuario.
+        // Sincroniza usuarios existentes de Identity.
         // Retorna el IdUsuario de tipo int.
         public int AsegurarRegistro(string idIdentity)
         {
-            // Buscar el usuario de ASP.NET Identity.
             var usuarioIdentity = _contexto.Users
                 .FirstOrDefault(u => u.Id == idIdentity)
                 ?? throw new InvalidOperationException(
@@ -35,16 +34,12 @@ namespace Hotel.Services
                     ? usuarioIdentity.UserName
                     : idIdentity;
 
-            // Buscar si ya existe un registro relacionado con Identity.
             var usuario = _contexto.Usuarios
                 .FirstOrDefault(u => u.IdentityId == idIdentity);
 
             if (usuario != null)
-            {
                 return usuario.IdUsuario;
-            }
 
-            // Si ya existe por correo, vincularlo con Identity.
             var porCorreo = _contexto.Usuarios
                 .FirstOrDefault(u => u.Correo.ToLower() == correo.ToLower());
 
@@ -64,7 +59,6 @@ namespace Hotel.Services
                 return porCorreo.IdUsuario;
             }
 
-            // Obtener el rol del usuario.
             string rol = (
                 from ur in _contexto.UserRoles
                 join r in _contexto.Roles
@@ -75,7 +69,6 @@ namespace Hotel.Services
 
             string idLimpio = idIdentity.Replace("-", "");
 
-            // Crear el registro en nuestra tabla Usuario.
             var nuevoUsuario = new UsuarioEntidad
             {
                 IdentityId = idIdentity,
@@ -90,15 +83,80 @@ namespace Hotel.Services
             };
 
             _contexto.Usuarios.Add(nuevoUsuario);
-
-            // IdUsuario se genera automáticamente en SQL Server.
             _contexto.SaveChanges();
 
             return nuevoUsuario.IdUsuario;
         }
 
-        // Obtener los nombres usando los identificadores
-        // de la tabla Usuario, que son de tipo int.
+        // Registra o vincula un cliente con sus datos personales.
+        public int AsegurarRegistroCliente(
+            string idIdentity,
+            string nombre,
+            string cedula,
+            string telefono,
+            string? direccion)
+        {
+            var usuarioIdentity = _contexto.Users
+                .FirstOrDefault(u => u.Id == idIdentity)
+                ?? throw new InvalidOperationException(
+                    "El usuario de Identity no existe.");
+
+            string correo = usuarioIdentity.Email
+                ?? throw new InvalidOperationException(
+                    "El usuario no tiene un correo electrónico.");
+
+            var usuario = _contexto.Usuarios
+                .FirstOrDefault(u => u.IdentityId == idIdentity);
+
+            if (usuario == null)
+            {
+                usuario = _contexto.Usuarios
+                    .FirstOrDefault(u =>
+                        u.Correo.ToLower() == correo.ToLower());
+
+                if (usuario != null)
+                {
+                    if (!string.IsNullOrEmpty(usuario.IdentityId) &&
+                        usuario.IdentityId != idIdentity)
+                    {
+                        throw new InvalidOperationException(
+                            "El correo ya está vinculado a otro usuario.");
+                    }
+
+                    usuario.IdentityId = idIdentity;
+                }
+                else
+                {
+                    usuario = new UsuarioEntidad
+                    {
+                        IdentityId = idIdentity,
+                        Correo = Recortar(correo, 150),
+                        ContrasenaHash = MarcaIdentity,
+                        Activo = true,
+                        FechaRegistro = _fechaService.ObtenerFechaActual()
+                    };
+
+                    _contexto.Usuarios.Add(usuario);
+                }
+            }
+
+            // Guardar los datos personales del cliente.
+            usuario.Nombre = Recortar(nombre.Trim(), 150);
+            usuario.Cedula = Recortar(cedula.Trim(), 20);
+            usuario.Telefono = Recortar(telefono.Trim(), 20);
+            usuario.Direccion = string.IsNullOrWhiteSpace(direccion)
+                ? null
+                : Recortar(direccion.Trim(), 250);
+
+            usuario.Correo = Recortar(correo, 150);
+            usuario.Rol = "Cliente";
+
+            _contexto.SaveChanges();
+
+            return usuario.IdUsuario;
+        }
+
+        // Obtener nombres usando los identificadores internos.
         public Dictionary<int, string> ObtenerNombres(
             IEnumerable<int> ids)
         {
@@ -129,12 +187,95 @@ namespace Hotel.Services
                 ? texto
                 : texto[..maximo];
         }
+
         public string? ObtenerIdentityId(int idUsuario)
         {
             return _contexto.Usuarios
                 .Where(u => u.IdUsuario == idUsuario)
                 .Select(u => u.IdentityId)
                 .FirstOrDefault();
+        }
+
+        public string ObtenerNombrePorIdentityId(string idIdentity)
+        {
+            var usuario = _contexto.Usuarios
+                .FirstOrDefault(u => u.IdentityId == idIdentity);
+
+            return usuario?.Nombre ?? "Usuario";
+        }
+
+        // Registra o vincula un usuario creado desde el panel administrativo.
+        public int AsegurarRegistroAdministrativo(
+            string idIdentity,
+            string nombre,
+            string cedula,
+            string telefono,
+            string? direccion,
+            string rol)
+        {
+            if (!Roles.Todos.Contains(rol))
+            {
+                throw new InvalidOperationException(
+                    "El rol seleccionado no es válido.");
+            }
+
+            var usuarioIdentity = _contexto.Users
+                .FirstOrDefault(u => u.Id == idIdentity)
+                ?? throw new InvalidOperationException(
+                    "El usuario de Identity no existe.");
+
+            string correo = usuarioIdentity.Email
+                ?? throw new InvalidOperationException(
+                    "El usuario no tiene un correo electrónico.");
+
+            var usuario = _contexto.Usuarios
+                .FirstOrDefault(u => u.IdentityId == idIdentity);
+
+            if (usuario == null)
+            {
+                usuario = _contexto.Usuarios
+                    .FirstOrDefault(u =>
+                        u.Correo.ToLower() == correo.ToLower());
+
+                if (usuario != null)
+                {
+                    if (!string.IsNullOrEmpty(usuario.IdentityId) &&
+                        usuario.IdentityId != idIdentity)
+                    {
+                        throw new InvalidOperationException(
+                            "El correo ya está vinculado a otro usuario.");
+                    }
+
+                    usuario.IdentityId = idIdentity;
+                }
+                else
+                {
+                    usuario = new UsuarioEntidad
+                    {
+                        IdentityId = idIdentity,
+                        Correo = Recortar(correo, 150),
+                        ContrasenaHash = MarcaIdentity,
+                        Activo = true,
+                        FechaRegistro = _fechaService.ObtenerFechaActual()
+                    };
+
+                    _contexto.Usuarios.Add(usuario);
+                }
+            }
+
+            usuario.Nombre = Recortar(nombre.Trim(), 150);
+            usuario.Cedula = Recortar(cedula.Trim(), 20);
+            usuario.Telefono = Recortar(telefono.Trim(), 20);
+            usuario.Direccion = string.IsNullOrWhiteSpace(direccion)
+                ? null
+                : Recortar(direccion.Trim(), 250);
+
+            usuario.Correo = Recortar(correo, 150);
+            usuario.Rol = rol;
+
+            _contexto.SaveChanges();
+
+            return usuario.IdUsuario;
         }
     }
 }
